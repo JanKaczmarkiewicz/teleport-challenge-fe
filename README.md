@@ -24,3 +24,10 @@ The goal is to create web application for browsing folders.
 - [rocket](https://rocket.rs/)
 - [serde](https://serde.rs/)
 - [docker](https://www.docker.com/)
+
+## Design
+
+See [figma](https://www.figma.com/file/J6yvOILo6HM62FnHXaAAOC/Untitled?node-id=0%3A1)
+
+- Based on google drive (material design).
+- Icons by [Icons8](https://icons8.com/)

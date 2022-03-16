@@ -61,6 +61,7 @@ Folder data service. In memory session authentication (in real world we should u
 
 > SAFETY NOTE:
 > In case we will use real DB to store data we should validate input against some kind of query injection (like SQL injection).
+> Each endpoint should be protected against Brute-force/DDoS attack (eg. one host can only use api few times per minute). I will not implement that.
 
 #### GET /folder/\*\*/\*
 

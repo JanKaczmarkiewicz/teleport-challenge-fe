@@ -2,9 +2,15 @@
 
 The goal is to create web application for browsing folders.
 
-## Tooling
+## Frontend
 
-### Frontend:
+Typical single page application.
+
+### Assets server
+
+![spa](/images/spa.png)
+
+### Tooling
 
 - [react](reactjs.org)
 - [react-router](https://reactrouter.com/)
@@ -12,20 +18,28 @@ The goal is to create web application for browsing folders.
 - [styled-components](https://styled-components.com/)
 - [vite](https://vitejs.dev/)
 - [testing-library](https://testing-library.com/)
-
-### Static assets hosting server:
-
 - [nginx](https://www.nginx.com/)
 - [docker](https://www.docker.com/)
 
-### Backend api:
+### Routes
 
-- [rust](https://www.rust-lang.org/)
-- [rocket](https://rocket.rs/)
-- [serde](https://serde.rs/)
-- [docker](https://www.docker.com/)
+#### /
 
-## Design
+Redirects user to `/folder`.
+
+#### /login
+
+A login screen where an unauthenticated user is automatically redirected to (and then taken back to original URL).
+
+#### /not-found
+
+Not found page where user is automatically redirected to in case folder does not exist.
+
+#### /folder/\*\*/\*
+
+Page displaying single folder content.
+
+### Design
 
 See [figma](https://www.figma.com/file/J6yvOILo6HM62FnHXaAAOC/HolderApp?node-id=0%3A1)
 

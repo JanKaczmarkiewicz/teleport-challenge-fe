@@ -184,3 +184,9 @@ All general things we should consider when writing secure app:
 > SAFETY NOTE:
 > We should write e2e/automated tests to be sure that these cases are covered.
 > I will not implement that.
+
+## Branch naming convention
+
+`numberOfTask-short-descriptive-name`
+eg.
+`0-create-design-document`

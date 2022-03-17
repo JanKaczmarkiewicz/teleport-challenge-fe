@@ -64,7 +64,7 @@ The page displays single folder content.
 
 ### Design
 
-See [figma](https://www.figma.com/file/J6yvOILo6HM62FnHXaAAOC/HolderApp?node-id=0%3A1)
+See [figma](https://www.figma.com/file/J6yvOILo6HM62FnHXaAAOC/FolderApp?node-id=0%3A1)
 
 - Based on google drive (material design).
 - Icons by [Icons8](https://icons8.com/)

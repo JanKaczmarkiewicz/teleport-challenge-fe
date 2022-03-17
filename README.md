@@ -1,6 +1,6 @@
 # Folder app
 
-The goal is to create safe web application for browsing folders.
+The goal is to create a safe web application for browsing folders.
 
 ## Frontend
 
@@ -9,7 +9,7 @@ Typical single page application.
 ### Assets server
 
 > SAFETY NOTE:
-> Server should serve assets via [HTTPS](https://en.wikipedia.org/wiki/HTTPS).
+> The server should serve assets via [HTTPS](https://en.wikipedia.org/wiki/HTTPS).
 > I will not implement that.
 
 ![spa](/images/spa.png)
@@ -33,15 +33,15 @@ Redirects user to `/folder`.
 
 #### /login
 
-A login screen where an unauthenticated user is automatically redirected to (and then taken back to original URL).
+A login screen where an unauthenticated user is automatically redirected to (and then taken back to the original URL).
 
 #### /not-found
 
-Not found page where user is automatically redirected to in case folder does not exist.
+Not found page, where a user is automatically redirected to in case folder, does not exist.
 
 #### /folder/\*\*/\*
 
-Page displaying single folder content.
+The page displays single folder content.
 
 ### Design
 
@@ -52,7 +52,7 @@ See [figma](https://www.figma.com/file/J6yvOILo6HM62FnHXaAAOC/HolderApp?node-id=
 
 ## Backend
 
-Folder data service. In memory session authentication.
+Folder data service. In-memory session authentication.
 
 ### Tooling
 
@@ -61,7 +61,7 @@ Folder data service. In memory session authentication.
 - [serde](https://serde.rs/)
 - [docker](https://www.docker.com/)
 
-### Api
+### API
 
 > SAFETY NOTE:
 > In case we will use real DB to store data we should validate input against some kind of query injection (like SQL injection).
@@ -72,19 +72,19 @@ Returns folder data.
 
 - **responds** with:
 
-  - <span style="color:red;">error</span> when user is unauthenticated,
+  - <span style="color:red;">error</span>, when a user is unauthenticated,
 
     ```ts
     HTTP/1.1 403 Forbidden
     ```
 
-  - <span style="color:red;">error</span> when user is authenticated and requested folder doesn't exist,
+  - <span style="color:red;">error</span>, when a user is authenticated and the requested folder, doesn't exist,
 
     ```ts
     HTTP/1.1 404 Not found
     ```
 
-  - <span style="color:green;">folder data</span> when user is authenticated and requested folder exist. Folder structure is always 1 level deep
+  - <span style="color:green;">folder data</span> when the user is authenticated and the requested folder exists. A folder structure is always 1 level deep.
 
     ```ts
     HTTP/1.1 200 Ok
@@ -121,13 +121,13 @@ Login.
 
 - **responds** with:
 
-  - <span style="color:red;">error</span> when credensials doesn't match any user,
+  - <span style="color:red;">error</span> when credentials don't match any user,
 
     ```ts
     HTTP/1.1 400 Bad request
     ```
 
-  - <span style="color:green;">success</span> code when session is created. Token cookie is valid for one day.
+  - <span style="color:green;">success</span> code when the session is created. The token cookie is valid for one day.
 
     ```ts
     HTTP/1.1 200 Ok
@@ -146,7 +146,7 @@ Logout.
     HTTP/1.1 400 Bad request
     ```
 
-  - <span style="color:green;">success</span> code when session is deleted. Sets session cookie expiration date to past date
+  - <span style="color:green;">success</span> code when the session is deleted. Sets session cookie expiration date to past date
     ```ts
     HTTP/1.1 200 Ok
     Set-Cookie: FOLDER-APP-TOKEN=none; Expires=Wed, 15 Mar 2022 07:28:00 GMT; SameSite=Strict; Secure; HttpOnly
@@ -154,13 +154,13 @@ Logout.
 
 ## Security considerations
 
-All general things we should consider when writing secure app:
+All general things we should consider when writing a secure app:
 
 > SAFETY NOTE:
-> Handle exeptions/error.
+> Handle exceptions/errors.
 
 > SAFETY NOTE:
-> Server should protected against Brute-force/DDoS attack (eg. one host can only use api few times per minute).
+> The server should be protected against Brute-force/DDoS attacks (eg. one host can only use API a few times per minute).
 > I will not implement that.
 
 > SAFETY NOTE:
@@ -171,14 +171,14 @@ All general things we should consider when writing secure app:
 > I will not implement that.
 
 > SAFETY NOTE:
-> App should be [protected against CSRF](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html).
+> The app should be [protected against CSRF](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html).
 > I will try to implement that if I will have time.
 
 > SAFETY NOTE:
 > Folder service should provide `Access-Control-Allow-Origin` only to our frontend origin.
 
 > SAFETY NOTE:
-> Make sure that we covering other [most common security vulnerabilities](https://owasp.org/www-project-top-ten/).
+> Make sure that we cover other [most common security vulnerabilities](https://owasp.org/www-project-top-ten/).
 > I will not implement that.
 
 > SAFETY NOTE:

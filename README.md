@@ -2,6 +2,25 @@
 
 The goal is to create a safe web application for browsing folders.
 
+- [Folder app](#folder-app)
+  - [Frontend](#frontend)
+    - [Assets server](#assets-server)
+    - [Tooling](#tooling)
+    - [Routes](#routes)
+      - [/](#)
+      - [/login](#login)
+      - [/not-found](#not-found)
+      - [/folder/\*\*/\*](#folder)
+    - [Design](#design)
+  - [Backend](#backend)
+    - [Tooling](#tooling-1)
+    - [API](#api)
+      - [GET /folder/\*\*/\*](#get-folder)
+      - [POST /session](#post-session)
+      - [DELETE /session](#delete-session)
+  - [Security considerations](#security-considerations)
+  - [Branch naming convention](#branch-naming-convention)
+
 ## Frontend
 
 Typical single page application.

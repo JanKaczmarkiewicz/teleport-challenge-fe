@@ -21,6 +21,7 @@ The goal is to create a safe web application for browsing folders.
       - [DELETE /session](#delete-session)
   - [Security considerations](#security-considerations)
   - [Branch naming convention](#branch-naming-convention)
+  - [Tests](#tests)
 
 ## Frontend
 
@@ -234,3 +235,15 @@ All general things we should consider when writing a secure app:
 `numberOfTask-short-descriptive-name`
 eg.
 `0-create-design-document`
+
+## Tests
+
+I decided not to cover all cases only the most important ones (since this is a demonstration):
+
+- on frontend:
+
+  - if the authenticated user is able to browse folders
+
+- on backend:
+  - if an authenticated user can get folder data
+  - if an unauthenticated user cannot get folder data

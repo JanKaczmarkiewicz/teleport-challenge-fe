@@ -153,7 +153,8 @@ Login.
     HTTP/1.1 400 Bad request
     ```
 
-  - <span style="color:green;">success</span> code when the session is created. The token cookie is valid for one day.
+  - <span style="color:green;">success</span> code when the session is created. The `FOLDER-APP-TOKEN` cookie will store `JWT` and will be valid for one day.
+    `FOLDER-APP-TOKEN`. `JWT` public claims will contain user's `id`.
 
     ```ts
     HTTP/1.1 200 Ok

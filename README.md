@@ -17,6 +17,7 @@ The goal is to create a safe web application for browsing folders.
     - [API](#api)
       - [GET /folder/\*\*/\*](#get-folder)
       - [POST /session](#post-session)
+      - [GET /session](#get-session)
       - [DELETE /session](#delete-session)
   - [Security considerations](#security-considerations)
   - [Branch naming convention](#branch-naming-convention)
@@ -159,6 +160,22 @@ Login.
     ```ts
     HTTP/1.1 200 Ok
     Set-Cookie: FOLDER-APP-TOKEN=a3fWa; Expires=Wed, 22 Mar 2022 07:28:00 GMT; SameSite=Strict; Secure; HttpOnly
+    ```
+
+#### GET /session
+
+Check if user is authenticated.
+
+- **responds** with:
+
+  - information about user authentication
+
+    ```ts
+    HTTP/1.1 200 Ok
+
+    {
+      isLogged: boolean,
+    }
     ```
 
 #### DELETE /session

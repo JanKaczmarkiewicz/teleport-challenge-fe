@@ -69,7 +69,7 @@ Not found page, where a user is automatically redirected to in case folder, does
 
 #### /folder/\*\*/\*
 
-The page displays single folder content.
+The page displays single folder content. User can filter files and folders in current directory using input.
 
 ### Design
 

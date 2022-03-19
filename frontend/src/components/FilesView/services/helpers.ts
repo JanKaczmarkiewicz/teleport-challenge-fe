@@ -1,4 +1,4 @@
-import { Location } from './types';
+import { Location, Folder } from './types';
 
 const root: Location = {
     name: 'teleport',
@@ -30,24 +30,24 @@ const root: Location = {
     ],
 };
 
-export const findLocation = (path: string) => {
+export const findFolder = (path: string) => {
     const pathParts = path.split('/').filter(Boolean);
 
-    let currentLocation: Location = root;
+    let currentFolder: Folder = root;
 
     for (const name of pathParts) {
-        if ('items' in currentLocation) {
-            const foundLocation = currentLocation.items.find(
-                (location) => location.name === name
-            ) as Location; //TODO: inspect type
+        const foundItem = currentFolder.items.find(
+            (item) => item.name === name
+        );
 
-            if (!foundLocation) return null;
+        // no item found
+        if (!foundItem) return null;
 
-            currentLocation = foundLocation;
-        }
+        // found file
+        if (!('items' in foundItem)) return null;
 
-        if (currentLocation.name != name) return null;
+        currentFolder = foundItem;
     }
 
-    return currentLocation;
+    return currentFolder;
 };

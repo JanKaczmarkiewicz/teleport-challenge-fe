@@ -4,7 +4,7 @@ type File = {
     type: 'file';
 };
 
-type Folder = {
+export type Folder = {
     name: string;
     sizeKb: number;
     type: 'dir';

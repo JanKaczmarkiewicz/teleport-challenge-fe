@@ -1,3 +1,5 @@
+import { useEffect, useMemo, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { Location, Folder } from './types';
 
 const root: Location = {
@@ -30,12 +32,10 @@ const root: Location = {
     ],
 };
 
-export const findFolder = (path: string) => {
-    const pathParts = path.split('/').filter(Boolean);
-
+const fetchFolder = async (directoryParts: string[]) => {
     let currentFolder: Folder = root;
 
-    for (const name of pathParts) {
+    for (const name of directoryParts) {
         const foundItem = currentFolder.items.find(
             (item) => item.name === name
         );
@@ -48,6 +48,33 @@ export const findFolder = (path: string) => {
 
         currentFolder = foundItem;
     }
-
     return currentFolder;
+};
+
+export const useCurrentDirectory = () => {
+    const directory = useParams<'*'>()['*'] || '';
+
+    const directoryParts = useMemo(
+        () => directory.split('/').filter(Boolean),
+        [directory]
+    );
+
+    const [data, setData] = useState<Folder | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        setIsLoading(true);
+        fetchFolder(directoryParts).then((folder) => {
+            setData(folder);
+            setIsLoading(false);
+        });
+    }, [directoryParts]);
+
+    return {
+        isLoading,
+        directory: {
+            data,
+            directoryParts,
+        },
+    };
 };

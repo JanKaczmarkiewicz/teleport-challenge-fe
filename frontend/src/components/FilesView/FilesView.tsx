@@ -8,9 +8,10 @@ import {
     Name,
 } from './services/styled';
 import { MdFolder, MdInsertDriveFile } from 'react-icons/md';
-import { useLocation } from 'react-router-dom';
+import { generatePath } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
-import { findFolder } from './services/helpers';
+import { useCurrentDirectory } from './services/helpers';
+import routes from '../../routes';
 
 const typeToIcon = {
     file: <MdInsertDriveFile />,
@@ -18,11 +19,14 @@ const typeToIcon = {
 };
 
 const FilesView = () => {
-    const location = useLocation();
+    const {
+        isLoading,
+        directory: { data, directoryParts },
+    } = useCurrentDirectory();
 
-    const currentLocation = findFolder(location.pathname);
+    if (isLoading) return null;
 
-    if (!currentLocation) return <Navigate to="/not-found" />;
+    if (!data) return <Navigate replace to={routes.notFound} />;
 
     return (
         <ListContainer>
@@ -35,12 +39,12 @@ const FilesView = () => {
                 </Cell>
             </HeaderRow>
 
-            {currentLocation.items.map(({ name, sizeKb, type }) => (
+            {data.items.map(({ name, sizeKb, type }) => (
                 <ItemRow
                     key={name}
-                    to={`${location.pathname}/${name}`
-                        // in case location.pathname is /
-                        .replaceAll('//', '/')}
+                    to={generatePath(routes.folder, {
+                        '*': [...directoryParts, name].join('/'),
+                    })}
                 >
                     <Cell>
                         <IconWrapper>{typeToIcon[type]}</IconWrapper>

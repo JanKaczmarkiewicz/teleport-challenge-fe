@@ -9,12 +9,18 @@ const Breadcrumbs = ({ items }: BreadcrumbProps) => {
     const lastIndex = items.length - 1;
 
     return (
-        <Containter>
+        <Containter aria-label="Breadcrumb">
             {items.map(({ to, label }, index) => (
                 <Fragment key={to}>
-                    <Breadcrumb to={to}>{label}</Breadcrumb>
-                    {index !== lastIndex && (
-                        <MdKeyboardArrowRight size={iconSizes.large} />
+                    {index !== lastIndex ? (
+                        <>
+                            <Breadcrumb to={to}>{label}</Breadcrumb>
+                            <MdKeyboardArrowRight size={iconSizes.large} />
+                        </>
+                    ) : (
+                        <Breadcrumb aria-current="page" to={to}>
+                            {label}
+                        </Breadcrumb>
                     )}
                 </Fragment>
             ))}

@@ -14,7 +14,7 @@ export const Breadcrumb = styled(Link)`
     }
 `;
 
-export const Containter = styled.div`
+export const Containter = styled.nav`
     display: flex;
     flex-direction: row;
     align-items: center;

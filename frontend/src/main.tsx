@@ -10,7 +10,6 @@ import ReactDOM from 'react-dom';
 import './global.css';
 import App from './components/App/App';
 import NotFound from './components/NotFound/NotFound';
-import Login from './components/Login/Login';
 import routes from './routes';
 
 ReactDOM.render(

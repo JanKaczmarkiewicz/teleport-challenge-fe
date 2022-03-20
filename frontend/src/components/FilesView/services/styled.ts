@@ -1,3 +1,4 @@
+import { MdArrowDownward } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import colors from '../../../colors';
@@ -24,6 +25,7 @@ export const HeaderRow = styled.div`
 
 export const FileRow = styled.div`
     ${rowStyles}
+    cursor: not-allowed;
 `;
 
 export const FolderRow = styled(Link)`
@@ -52,4 +54,22 @@ export const ColumnName = styled.div`
 export const Name = styled.div`
     font-weight: 500;
     color: ${colors.darkGray};
+`;
+
+export const SortIcon = styled(MdArrowDownward).withConfig<{
+    isRotated: boolean;
+}>({
+    shouldForwardProp: (prop) => prop !== 'isRotated',
+})`
+    transform: rotate(${({ isRotated }) => (isRotated ? '180deg' : '0')});
+`;
+
+export const NameButton = styled.button`
+    border: none;
+    display: flex;
+    cursor: pointer;
+    gap: 8px;
+    align-items: center;
+    background-color: inherit;
+    padding: 0;
 `;

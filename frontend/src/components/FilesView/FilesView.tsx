@@ -1,3 +1,6 @@
+import { useState } from 'react';
+import { Navigate } from 'react-router-dom';
+import { MdFolder, MdInsertDriveFile } from 'react-icons/md';
 import {
     Cell,
     ColumnName,
@@ -7,19 +10,18 @@ import {
     IconWrapper,
     ListContainer,
     Name,
+    SortIcon,
+    NameButton,
 } from './services/styled';
-import { MdFolder, MdInsertDriveFile } from 'react-icons/md';
-import { generatePath } from 'react-router-dom';
-import { Navigate } from 'react-router-dom';
-import { useCurrentDirectory } from './services/helpers';
+import {
+    by,
+    generateFolderPath,
+    getBreadcumbs,
+    useCurrentDirectory,
+} from './services/helpers';
 import routes from '../../routes';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import iconSizes from '../../iconSizes';
-
-const generateFolderPath = (parts: string[] = ['']) =>
-    generatePath(routes.folder, {
-        '*': parts.join('/'),
-    });
 
 const FilesView = () => {
     const {
@@ -27,28 +29,40 @@ const FilesView = () => {
         directory: { data, directoryParts },
     } = useCurrentDirectory();
 
+    const [order, setOrder] = useState<'desc' | 'asc'>('asc');
+
     if (isLoading) return null;
 
     if (!data) return <Navigate replace to={routes.notFound} />;
 
-    const breadcrumbs = directoryParts.map((label, index) => ({
-        label,
-        to: generateFolderPath(directoryParts.slice(0, index + 1)),
-    }));
+    // NOTE: Sorting and filtering is an expensive operation on big data sets.
+    // Right now, we don't need a memorization since every component update causes a change in options order or number.
+    // Please verify that every time component functionality changes.
+    const sortedItems = [...data.items].sort(by('name'));
+    const orderedSortedItems =
+        order === 'desc' ? sortedItems.reverse() : sortedItems;
 
-    breadcrumbs.unshift({
-        label: 'My folder',
-        to: generateFolderPath(),
-    });
+    const files = orderedSortedItems.filter(({ type }) => type === 'file');
+    const folders = orderedSortedItems.filter(({ type }) => type === 'dir');
+
+    const handleToogleOrder = () => {
+        setOrder((current) => (current === 'desc' ? 'asc' : 'desc'));
+    };
 
     return (
         <>
-            <Breadcrumbs items={breadcrumbs} />
+            <Breadcrumbs items={getBreadcumbs(directoryParts)} />
 
             <ListContainer>
                 <HeaderRow>
                     <Cell>
-                        <ColumnName>Name</ColumnName>
+                        <NameButton onClick={handleToogleOrder} type="button">
+                            <ColumnName>Name</ColumnName>
+                            <SortIcon
+                                isRotated={order === 'desc'}
+                                size={iconSizes.medium}
+                            />
+                        </NameButton>
                     </Cell>
 
                     <Cell>
@@ -56,34 +70,34 @@ const FilesView = () => {
                     </Cell>
                 </HeaderRow>
 
-                {data.items.map(({ name, sizeKb, type }) =>
-                    type === 'dir' ? (
-                        <FolderRow
-                            key={name}
-                            to={generateFolderPath([...directoryParts, name])}
-                        >
-                            <Cell>
-                                <IconWrapper>
-                                    <MdFolder size={iconSizes.large} />
-                                </IconWrapper>
-                                <Name>{name}</Name>
-                            </Cell>
+                {folders.map(({ name }) => (
+                    <FolderRow
+                        key={name}
+                        to={generateFolderPath([...directoryParts, name])}
+                    >
+                        <Cell>
+                            <IconWrapper>
+                                <MdFolder size={iconSizes.large} />
+                            </IconWrapper>
+                            <Name>{name}</Name>
+                        </Cell>
 
-                            <Cell>-</Cell>
-                        </FolderRow>
-                    ) : (
-                        <FileRow key={name}>
-                            <Cell>
-                                <IconWrapper>
-                                    <MdInsertDriveFile size={iconSizes.large} />
-                                </IconWrapper>
-                                <Name>{name}</Name>
-                            </Cell>
+                        <Cell>-</Cell>
+                    </FolderRow>
+                ))}
 
-                            <Cell>{sizeKb}</Cell>
-                        </FileRow>
-                    )
-                )}
+                {files.map(({ name, sizeKb }) => (
+                    <FileRow key={name}>
+                        <Cell>
+                            <IconWrapper>
+                                <MdInsertDriveFile size={iconSizes.large} />
+                            </IconWrapper>
+                            <Name>{name}</Name>
+                        </Cell>
+
+                        <Cell>{sizeKb}</Cell>
+                    </FileRow>
+                ))}
             </ListContainer>
         </>
     );

@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { generatePath, useParams } from 'react-router-dom';
+import routes from '../../../routes';
 import { Location, Folder } from './types';
 
 const root: Location = {
@@ -8,7 +9,12 @@ const root: Location = {
     type: 'dir',
     items: [
         {
-            name: 'lib',
+            name: 'index.js',
+            sizeKb: 2333,
+            type: 'file',
+        },
+        {
+            name: 'nested',
             sizeKb: 0,
             type: 'dir',
             items: [
@@ -43,6 +49,30 @@ const root: Location = {
                 },
             ],
         },
+        {
+            name: 'favorites',
+            sizeKb: 0,
+            type: 'dir',
+            items: [],
+        },
+        {
+            name: 'music',
+            sizeKb: 0,
+            type: 'dir',
+            items: [],
+        },
+        {
+            name: 'css',
+            sizeKb: 0,
+            type: 'dir',
+            items: [],
+        },
+        {
+            name: 'db',
+            sizeKb: 12476236523,
+            type: 'file',
+        },
+
         {
             name: 'README.md',
             sizeKb: 4340,
@@ -97,3 +127,33 @@ export const useCurrentDirectory = () => {
         },
     };
 };
+
+export const generateFolderPath = (parts: string[] = ['']) =>
+    generatePath(routes.folder, {
+        '*': parts.join('/'),
+    });
+
+export const getBreadcumbs = (paths: string[]) => {
+    const breadcrumbs = [
+        {
+            label: 'My folder',
+            to: generateFolderPath(),
+        },
+    ];
+
+    for (const [index, label] of paths.entries())
+        breadcrumbs.push({
+            label,
+            to: generateFolderPath(paths.slice(0, index + 1)),
+        });
+
+    return breadcrumbs;
+};
+
+export const by =
+    <T extends Record<string, unknown>>(property: keyof T) =>
+    (left: T, right: T) => {
+        if (left[property] < right[property]) return -1;
+        if (left[property] > right[property]) return 1;
+        return 0;
+    };

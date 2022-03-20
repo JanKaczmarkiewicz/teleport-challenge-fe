@@ -24,8 +24,9 @@ import {
 } from './services/helpers';
 import routes from '../../routes';
 import iconSizes from '../../iconSizes';
+import PageContainer from '../PageContainer/PageContainer';
 
-const FilesView = () => {
+const FilesPage = () => {
     const {
         isLoading,
         directory: { data, directoryParts },
@@ -60,7 +61,7 @@ const FilesView = () => {
     };
 
     return (
-        <>
+        <PageContainer>
             <BreadcrumbsWithSpace items={getBreadcumbs(directoryParts)} />
 
             <InputWithSpace
@@ -118,8 +119,8 @@ const FilesView = () => {
                     </FileRow>
                 ))}
             </ListContainer>
-        </>
+        </PageContainer>
     );
 };
 
-export default FilesView;
+export default FilesPage;

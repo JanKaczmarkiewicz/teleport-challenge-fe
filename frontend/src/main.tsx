@@ -8,11 +8,11 @@ import {
 } from 'react-router-dom';
 import ReactDOM from 'react-dom';
 import './global.css';
-import App from './components/App/App';
-import NotFound from './components/NotFound/NotFound';
 import routes from './routes';
 import { IconContext } from 'react-icons';
 import colors from './colors';
+import FilesPage from './components/FilesPage/FilesPage';
+import NotFoundPage from './components/NotFoundPage/NotFoundPage';
 
 const iconContextConfig = { color: colors.grey };
 
@@ -29,8 +29,8 @@ ReactDOM.render(
                         }
                         path={routes.root}
                     />
-                    <Route element={<App />} path={routes.folder} />
-                    <Route element={<NotFound />} path={routes.notFound} />
+                    <Route element={<FilesPage />} path={routes.folder} />
+                    <Route element={<NotFoundPage />} path={routes.notFound} />
                 </Routes>
             </BrowserRouter>
         </IconContext.Provider>

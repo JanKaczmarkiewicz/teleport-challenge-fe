@@ -16,7 +16,7 @@ import routes from '../../routes';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import iconSizes from '../../iconSizes';
 
-const generateFolderPath = (parts: string[]) =>
+const generateFolderPath = (parts: string[] = ['']) =>
     generatePath(routes.folder, {
         '*': parts.join('/'),
     });
@@ -32,13 +32,13 @@ const FilesView = () => {
     if (!data) return <Navigate replace to={routes.notFound} />;
 
     const breadcrumbs = directoryParts.map((label, index) => ({
-        label: label,
+        label,
         to: generateFolderPath(directoryParts.slice(0, index + 1)),
     }));
 
     breadcrumbs.unshift({
         label: 'My folder',
-        to: generateFolderPath(['']),
+        to: generateFolderPath(),
     });
 
     return (

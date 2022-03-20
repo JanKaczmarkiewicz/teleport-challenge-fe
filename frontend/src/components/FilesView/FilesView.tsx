@@ -15,6 +15,7 @@ import {
 } from './services/styled';
 import {
     by,
+    formatSize,
     generateFolderPath,
     getBreadcumbs,
     useCurrentDirectory,
@@ -97,7 +98,7 @@ const FilesView = () => {
                             <Name>{name}</Name>
                         </Cell>
 
-                        <Cell>{sizeKb}</Cell>
+                        <Cell>{formatSize(sizeKb)}</Cell>
                     </FileRow>
                 ))}
             </ListContainer>

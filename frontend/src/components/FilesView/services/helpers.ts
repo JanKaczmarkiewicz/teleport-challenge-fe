@@ -75,7 +75,7 @@ const root: Location = {
 
         {
             name: 'README.md',
-            sizeKb: 4340,
+            sizeKb: 0,
             type: 'file',
         },
     ],
@@ -157,3 +157,16 @@ export const by =
         if (left[property] > right[property]) return 1;
         return 0;
     };
+
+export const formatSize = (sizeKb: number) => {
+    const SCALE = 1000;
+    const sizeBytes = sizeKb / SCALE;
+    const i =
+        sizeBytes === 0 ? 0 : Math.floor(Math.log(sizeBytes) / Math.log(SCALE));
+    const unit = ['B', 'kB', 'MB', 'GB', 'TB'][i];
+    const value = Number.parseFloat(
+        (sizeBytes / Math.pow(SCALE, i)).toFixed(2)
+    );
+
+    return `${value} ${unit}`;
+};

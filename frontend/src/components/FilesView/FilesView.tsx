@@ -12,6 +12,8 @@ import {
     Name,
     SortIcon,
     NameButton,
+    InputWithSpace,
+    BreadcrumbsWithSpace,
 } from './services/styled';
 import {
     by,
@@ -21,9 +23,7 @@ import {
     useCurrentDirectory,
 } from './services/helpers';
 import routes from '../../routes';
-import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import iconSizes from '../../iconSizes';
-import Input from '../Input/Input';
 
 const FilesView = () => {
     const {
@@ -61,9 +61,9 @@ const FilesView = () => {
 
     return (
         <>
-            <Breadcrumbs items={getBreadcumbs(directoryParts)} />
+            <BreadcrumbsWithSpace items={getBreadcumbs(directoryParts)} />
 
-            <Input
+            <InputWithSpace
                 icon={<MdSearch size={iconSizes.medium} />}
                 onChange={handleInputChange}
                 placeholder={`Search in current folder`}

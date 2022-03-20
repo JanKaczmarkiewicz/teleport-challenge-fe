@@ -24,8 +24,8 @@ export const InputWrapper = styled.div`
 `;
 
 export const Input = styled.input<{ isFullwidth?: boolean }>`
-    font-size: 14px;
-    border: 1px solid ${colors.grey};
+    font-size: 13px;
+    border: 1px solid ${colors.lightGray};
     border-radius: 4px;
     height: 40px;
     color: ${colors.dark};

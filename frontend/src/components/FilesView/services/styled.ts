@@ -2,6 +2,8 @@ import { MdArrowDownward } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import colors from '../../../colors';
+import Breadcrumbs from '../../Breadcrumbs/Breadcrumbs';
+import Input from '../../Input/Input';
 
 export const ListContainer = styled.div`
     display: flex;
@@ -72,4 +74,12 @@ export const NameButton = styled.button`
     align-items: center;
     background-color: inherit;
     padding: 0;
+`;
+
+export const InputWithSpace = styled(Input)`
+    margin-bottom: 16px;
+`;
+
+export const BreadcrumbsWithSpace = styled(Breadcrumbs)`
+    margin-bottom: 32px;
 `;

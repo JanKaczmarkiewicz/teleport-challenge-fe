@@ -3,13 +3,16 @@ import { MdKeyboardArrowRight } from 'react-icons/md';
 import iconSizes from '../../iconSizes';
 import { Breadcrumb, Containter } from './services/styled';
 
-type BreadcrumbProps = { items: { label: string; to: string }[] };
+type BreadcrumbProps = {
+    items: { label: string; to: string }[];
+    className?: string;
+};
 
-const Breadcrumbs = ({ items }: BreadcrumbProps) => {
+const Breadcrumbs = ({ items, className }: BreadcrumbProps) => {
     const lastIndex = items.length - 1;
 
     return (
-        <Containter aria-label="Breadcrumb">
+        <Containter aria-label="Breadcrumb" className={className}>
             {items.map(({ to, label }, index) => (
                 <Fragment key={to}>
                     {index !== lastIndex ? (

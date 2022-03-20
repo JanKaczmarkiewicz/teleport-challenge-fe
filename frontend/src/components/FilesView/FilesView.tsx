@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import { MdFolder, MdInsertDriveFile } from 'react-icons/md';
+import { MdFolder, MdOutlineInsertDriveFile } from 'react-icons/md';
 import {
     Cell,
     ColumnName,
@@ -90,7 +90,9 @@ const FilesView = () => {
                     <FileRow key={name}>
                         <Cell>
                             <IconWrapper>
-                                <MdInsertDriveFile size={iconSizes.large} />
+                                <MdOutlineInsertDriveFile
+                                    size={iconSizes.large}
+                                />
                             </IconWrapper>
                             <Name>{name}</Name>
                         </Cell>

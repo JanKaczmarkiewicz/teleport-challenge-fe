@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ChangeEventHandler, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { MdFolder, MdOutlineInsertDriveFile } from 'react-icons/md';
 import {
@@ -30,6 +30,8 @@ const FilesView = () => {
         directory: { data, directoryParts },
     } = useCurrentDirectory();
 
+    const [inputValue, setInputValue] = useState('');
+
     const [order, setOrder] = useState<'desc' | 'asc'>('asc');
 
     if (isLoading) return null;
@@ -39,7 +41,9 @@ const FilesView = () => {
     // NOTE: Sorting and filtering is an expensive operation on big data sets.
     // Right now, we don't need a memorization since every component update causes a change in options order or number.
     // Please verify that every time component functionality changes.
-    const sortedItems = [...data.items].sort(by('name'));
+    const sortedItems = [...data.items]
+        .filter(({ name }) => name.startsWith(inputValue))
+        .sort(by('name'));
     const orderedSortedItems =
         order === 'desc' ? sortedItems.reverse() : sortedItems;
 
@@ -50,9 +54,15 @@ const FilesView = () => {
         setOrder((current) => (current === 'desc' ? 'asc' : 'desc'));
     };
 
+    const handleInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+        setInputValue(e.target.value);
+    };
+
     return (
         <>
             <Breadcrumbs items={getBreadcumbs(directoryParts)} />
+
+            <input onChange={handleInputChange} value={inputValue} />
 
             <ListContainer>
                 <HeaderRow>

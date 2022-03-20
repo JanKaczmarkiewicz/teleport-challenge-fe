@@ -1,9 +1,10 @@
 import {
     Cell,
     ColumnName,
+    FileRow,
+    FolderRow,
     HeaderRow,
     IconWrapper,
-    ItemRow,
     ListContainer,
     Name,
 } from './services/styled';
@@ -14,11 +15,6 @@ import { useCurrentDirectory } from './services/helpers';
 import routes from '../../routes';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import iconSizes from '../../iconSizes';
-
-const typeToIcon = {
-    file: <MdInsertDriveFile size={iconSizes.large} />,
-    dir: <MdFolder size={iconSizes.large} />,
-};
 
 const generateFolderPath = (parts: string[]) =>
     generatePath(routes.folder, {
@@ -54,27 +50,40 @@ const FilesView = () => {
                     <Cell>
                         <ColumnName>Name</ColumnName>
                     </Cell>
+
                     <Cell>
                         <ColumnName>Size</ColumnName>
                     </Cell>
                 </HeaderRow>
 
-                {data.items.map(({ name, sizeKb, type }) => (
-                    <ItemRow
-                        key={name}
-                        to={
-                            type === 'dir'
-                                ? generateFolderPath([...directoryParts, name])
-                                : '#'
-                        }
-                    >
-                        <Cell>
-                            <IconWrapper>{typeToIcon[type]}</IconWrapper>
-                            <Name>{name}</Name>
-                        </Cell>
-                        <Cell>{sizeKb}</Cell>
-                    </ItemRow>
-                ))}
+                {data.items.map(({ name, sizeKb, type }) =>
+                    type === 'dir' ? (
+                        <FolderRow
+                            key={name}
+                            to={generateFolderPath([...directoryParts, name])}
+                        >
+                            <Cell>
+                                <IconWrapper>
+                                    <MdFolder size={iconSizes.large} />
+                                </IconWrapper>
+                                <Name>{name}</Name>
+                            </Cell>
+
+                            <Cell>-</Cell>
+                        </FolderRow>
+                    ) : (
+                        <FileRow key={name}>
+                            <Cell>
+                                <IconWrapper>
+                                    <MdInsertDriveFile size={iconSizes.large} />
+                                </IconWrapper>
+                                <Name>{name}</Name>
+                            </Cell>
+
+                            <Cell>{sizeKb}</Cell>
+                        </FileRow>
+                    )
+                )}
             </ListContainer>
         </>
     );

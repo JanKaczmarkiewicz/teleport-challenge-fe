@@ -22,7 +22,11 @@ export const HeaderRow = styled.div`
     ${rowStyles}
 `;
 
-export const ItemRow = styled(Link)`
+export const FileRow = styled.div`
+    ${rowStyles}
+`;
+
+export const FolderRow = styled(Link)`
     ${rowStyles}
     text-decoration: none;
 `;

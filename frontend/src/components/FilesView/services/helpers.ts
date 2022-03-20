@@ -13,14 +13,33 @@ const root: Location = {
             type: 'dir',
             items: [
                 {
-                    name: 'teleport.go',
-                    sizeKb: 320,
-                    type: 'file',
-                },
-                {
-                    name: 'test.go',
-                    sizeKb: 3320,
-                    type: 'file',
+                    name: 'foo',
+                    sizeKb: 0,
+                    type: 'dir',
+                    items: [
+                        {
+                            name: 'bar',
+                            sizeKb: 0,
+                            type: 'dir',
+                            items: [
+                                {
+                                    name: 'teleport.go',
+                                    sizeKb: 320,
+                                    type: 'file',
+                                },
+                                {
+                                    name: 'test.go',
+                                    sizeKb: 3320,
+                                    type: 'file',
+                                },
+                            ],
+                        },
+                        {
+                            name: 'test.go',
+                            sizeKb: 3320,
+                            type: 'file',
+                        },
+                    ],
                 },
             ],
         },

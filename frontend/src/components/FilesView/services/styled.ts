@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
+import colors from '../../../colors';
 
 export const ListContainer = styled.div`
     display: flex;
@@ -8,7 +9,7 @@ export const ListContainer = styled.div`
 
 const rowStyles = css`
     align-items: center;
-    border-bottom: 1px solid #dadce0;
+    border-bottom: 1px solid ${colors.lightGray};
     display: grid;
     gap: 8px;
     padding-inline: 6px;
@@ -29,21 +30,22 @@ export const ItemRow = styled(Link)`
 export const IconWrapper = styled.div`
     display: flex;
     padding-inline: 16px;
-    color: rgba(0, 0, 0, 0.54);
+    color: ${colors.grey};
     align-items: center;
 `;
 
 export const Cell = styled.div`
     display: flex;
-    color: rgba(0, 0, 0, 0.54);
+    align-items: center;
+    color: ${colors.grey};
 `;
 
 export const ColumnName = styled.div`
     font-weight: bold;
-    color: rgba(0, 0, 0, 0.54);
+    color: ${colors.grey};
 `;
 
 export const Name = styled.div`
     font-weight: 500;
-    color: rgba(0, 0, 0, 0.72);
+    color: ${colors.darkGray};
 `;

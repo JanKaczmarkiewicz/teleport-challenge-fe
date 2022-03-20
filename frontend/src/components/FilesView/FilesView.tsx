@@ -12,11 +12,18 @@ import { generatePath } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
 import { useCurrentDirectory } from './services/helpers';
 import routes from '../../routes';
+import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
+import iconSizes from '../../iconSizes';
 
 const typeToIcon = {
-    file: <MdInsertDriveFile />,
-    dir: <MdFolder />,
+    file: <MdInsertDriveFile size={iconSizes.large} />,
+    dir: <MdFolder size={iconSizes.large} />,
 };
+
+const generateFolderPath = (parts: string[]) =>
+    generatePath(routes.folder, {
+        '*': parts.join('/'),
+    });
 
 const FilesView = () => {
     const {
@@ -28,32 +35,48 @@ const FilesView = () => {
 
     if (!data) return <Navigate replace to={routes.notFound} />;
 
-    return (
-        <ListContainer>
-            <HeaderRow>
-                <Cell>
-                    <ColumnName>Name</ColumnName>
-                </Cell>
-                <Cell>
-                    <ColumnName>Size</ColumnName>
-                </Cell>
-            </HeaderRow>
+    const breadcrumbs = directoryParts.map((label, index) => ({
+        label: label,
+        to: generateFolderPath(directoryParts.slice(0, index + 1)),
+    }));
 
-            {data.items.map(({ name, sizeKb, type }) => (
-                <ItemRow
-                    key={name}
-                    to={generatePath(routes.folder, {
-                        '*': [...directoryParts, name].join('/'),
-                    })}
-                >
+    breadcrumbs.unshift({
+        label: 'My folder',
+        to: generateFolderPath(['']),
+    });
+
+    return (
+        <>
+            <Breadcrumbs items={breadcrumbs} />
+
+            <ListContainer>
+                <HeaderRow>
                     <Cell>
-                        <IconWrapper>{typeToIcon[type]}</IconWrapper>
-                        <Name>{name}</Name>
+                        <ColumnName>Name</ColumnName>
                     </Cell>
-                    <Cell>{sizeKb}</Cell>
-                </ItemRow>
-            ))}
-        </ListContainer>
+                    <Cell>
+                        <ColumnName>Size</ColumnName>
+                    </Cell>
+                </HeaderRow>
+
+                {data.items.map(({ name, sizeKb, type }) => (
+                    <ItemRow
+                        key={name}
+                        to={
+                            type === 'dir'
+                                ? generateFolderPath([...directoryParts, name])
+                                : '#'
+                        }
+                    >
+                        <Cell>
+                            <IconWrapper>{typeToIcon[type]}</IconWrapper>
+                            <Name>{name}</Name>
+                        </Cell>
+                        <Cell>{sizeKb}</Cell>
+                    </ItemRow>
+                ))}
+            </ListContainer>
+        </>
     );
 };
 

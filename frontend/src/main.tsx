@@ -26,7 +26,6 @@ ReactDOM.render(
                     path={routes.root}
                 />
                 <Route element={<App />} path={routes.folder} />
-                <Route element={<Login />} path={routes.login} />
                 <Route element={<NotFound />} path={routes.notFound} />
             </Routes>
         </BrowserRouter>

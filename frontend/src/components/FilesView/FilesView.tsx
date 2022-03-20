@@ -1,6 +1,6 @@
 import { ChangeEventHandler, useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import { MdFolder, MdOutlineInsertDriveFile } from 'react-icons/md';
+import { MdFolder, MdOutlineInsertDriveFile, MdSearch } from 'react-icons/md';
 import {
     Cell,
     ColumnName,
@@ -23,6 +23,7 @@ import {
 import routes from '../../routes';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import iconSizes from '../../iconSizes';
+import Input from '../Input/Input';
 
 const FilesView = () => {
     const {
@@ -62,7 +63,12 @@ const FilesView = () => {
         <>
             <Breadcrumbs items={getBreadcumbs(directoryParts)} />
 
-            <input onChange={handleInputChange} value={inputValue} />
+            <Input
+                icon={<MdSearch size={iconSizes.medium} />}
+                onChange={handleInputChange}
+                placeholder={`Search in current folder`}
+                value={inputValue}
+            />
 
             <ListContainer>
                 <HeaderRow>

@@ -1,4 +1,4 @@
-import { MdArrowDownward } from 'react-icons/md';
+import { MdArrowUpward } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import colors from '../../../colors';
@@ -58,7 +58,7 @@ export const Name = styled.div`
     color: ${colors.darkGray};
 `;
 
-export const SortIcon = styled(MdArrowDownward).withConfig<{
+export const SortIcon = styled(MdArrowUpward).withConfig<{
     isRotated: boolean;
 }>({
     shouldForwardProp: (prop) => prop !== 'isRotated',

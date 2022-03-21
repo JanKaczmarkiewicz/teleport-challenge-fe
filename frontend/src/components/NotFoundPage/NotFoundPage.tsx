@@ -17,7 +17,9 @@ const NotFoundPage = () => {
                 <MdSentimentDissatisfied size={iconSizes.extraLarge} />
                 Page not found
             </MessageContiner>
-            <Button onClick={handleBackClick}>Take me back</Button>
+            <Button onClick={handleBackClick} type="button">
+                Take me back
+            </Button>
         </NotFoundPageContainer>
     );
 };

@@ -34,7 +34,7 @@ const FilesPage = () => {
 
     const [inputValue, setInputValue] = useState('');
 
-    const [order, setOrder] = useState<'desc' | 'asc'>('asc');
+    const [isDescending, setIsDescending] = useState(false);
 
     if (isLoading) return null;
 
@@ -46,14 +46,15 @@ const FilesPage = () => {
     const sortedItems = [...data.items]
         .filter(({ name }) => name.startsWith(inputValue))
         .sort(by('name'));
-    const orderedSortedItems =
-        order === 'desc' ? sortedItems.reverse() : sortedItems;
+    const orderedSortedItems = isDescending
+        ? sortedItems.reverse()
+        : sortedItems;
 
     const files = orderedSortedItems.filter(({ type }) => type === 'file');
     const folders = orderedSortedItems.filter(({ type }) => type === 'dir');
 
     const handleToogleOrder = () => {
-        setOrder((current) => (current === 'desc' ? 'asc' : 'desc'));
+        setIsDescending((current) => !current);
     };
 
     const handleInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -77,7 +78,7 @@ const FilesPage = () => {
                         <NameButton onClick={handleToogleOrder} type="button">
                             <ColumnName>Name</ColumnName>
                             <SortIcon
-                                isRotated={order === 'desc'}
+                                isRotated={isDescending}
                                 size={iconSizes.medium}
                             />
                         </NameButton>

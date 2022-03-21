@@ -4,7 +4,7 @@ import { generateFolderPath } from '../../../routes';
 import { Location, Folder } from './types';
 
 const root: Location = {
-    name: 'teleport',
+    name: 'root',
     sizeKb: 0,
     type: 'dir',
     items: [
@@ -28,6 +28,11 @@ const root: Location = {
                             sizeKb: 0,
                             type: 'dir',
                             items: [
+                                {
+                                    name: 'main.js',
+                                    sizeKb: 0.5,
+                                    type: 'file',
+                                },
                                 {
                                     name: 'teleport.go',
                                     sizeKb: 320,
@@ -155,7 +160,7 @@ export const by =
 
 export const formatSize = (sizeKb: number) => {
     const SCALE = 1000;
-    const sizeBytes = sizeKb / SCALE;
+    const sizeBytes = sizeKb * SCALE;
     const i =
         sizeBytes === 0 ? 0 : Math.floor(Math.log(sizeBytes) / Math.log(SCALE));
     const unit = ['B', 'kB', 'MB', 'GB', 'TB'][i];

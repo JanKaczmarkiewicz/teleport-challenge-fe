@@ -18,11 +18,10 @@ import {
 import {
     by,
     formatSize,
-    generateFolderPath,
     getBreadcumbs,
     useCurrentDirectory,
 } from './services/helpers';
-import routes from '../../routes';
+import routes, { generateFolderPath } from '../../routes';
 import iconSizes from '../../iconSizes';
 import PageContainer from '../PageContainer/PageContainer';
 

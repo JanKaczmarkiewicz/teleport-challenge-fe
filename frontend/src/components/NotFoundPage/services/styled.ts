@@ -14,7 +14,7 @@ export const MessageContiner = styled.div`
     display: flex;
     gap: 8px;
     font-size: 24px;
-    color: ${colors.gray};
+    color: ${colors.builder};
     justify-content: center;
     align-items: center;
 `;

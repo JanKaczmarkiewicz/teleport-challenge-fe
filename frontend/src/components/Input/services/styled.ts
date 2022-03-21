@@ -24,13 +24,13 @@ export const InputWrapper = styled.div`
 `;
 
 export const Input = styled.input<{ isFullwidth?: boolean }>`
-    border: 1px solid ${colors.lightGray};
+    border: 1px solid ${colors.iron};
     border-radius: 4px;
     height: 40px;
-    color: ${colors.dark};
+    color: ${colors.shark};
     width: ${({ isFullwidth }) => (isFullwidth ? '100%' : '300px')};
 
     ::placeholder {
-        color: ${colors.gray};
+        color: ${colors.builder};
     }
 `;

@@ -6,7 +6,7 @@ import { IconContext } from 'react-icons';
 import colors from './colors';
 import App from './components/App/App';
 
-const iconContextConfig = { color: colors.gray };
+const iconContextConfig = { color: colors.builder };
 
 ReactDOM.render(
     <React.StrictMode>

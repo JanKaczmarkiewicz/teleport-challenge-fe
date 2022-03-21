@@ -12,7 +12,7 @@ export const ListContainer = styled.div`
 
 const rowStyles = css`
     align-items: center;
-    border-bottom: 1px solid ${colors.lightGray};
+    border-bottom: 1px solid ${colors.iron};
     display: grid;
     gap: 8px;
     padding-inline: 6px;
@@ -38,24 +38,24 @@ export const FolderRow = styled(Link)`
 export const IconWrapper = styled.div`
     display: flex;
     padding-inline: 16px;
-    color: ${colors.gray};
+    color: ${colors.builder};
     align-items: center;
 `;
 
 export const Cell = styled.div`
     display: flex;
     align-items: center;
-    color: ${colors.gray};
+    color: ${colors.builder};
 `;
 
 export const ColumnName = styled.div`
     font-weight: bold;
-    color: ${colors.gray};
+    color: ${colors.builder};
 `;
 
 export const Name = styled.div`
     font-weight: 500;
-    color: ${colors.darkGray};
+    color: ${colors.tundora};
 `;
 
 export const SortIcon = styled(MdArrowUpward).withConfig<{

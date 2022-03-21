@@ -6,7 +6,7 @@ export const Breadcrumb = styled(Link)`
     text-decoration: none;
     padding: 8px 16px;
     font-size: 18px;
-    color: ${colors.gray};
+    color: ${colors.builder};
     border-radius: 8px;
 
     :hover {
@@ -14,7 +14,7 @@ export const Breadcrumb = styled(Link)`
     }
 
     :last-of-type {
-        color: ${colors.dark};
+        color: ${colors.shark};
         pointer-events: none;
     }
 `;

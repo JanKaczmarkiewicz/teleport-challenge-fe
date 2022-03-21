@@ -31,6 +31,6 @@ export const Input = styled.input<{ isFullwidth?: boolean }>`
     width: ${({ isFullwidth }) => (isFullwidth ? '100%' : '300px')};
 
     ::placeholder {
-        color: ${colors.builder};
+        color: ${colors.boulder};
     }
 `;

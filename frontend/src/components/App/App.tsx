@@ -5,7 +5,7 @@ import routes, { generateFolderPath } from '../../routes';
 import FilesPage from '../FilesPage/FilesPage';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
 
-const iconContextConfig = { color: colors.builder };
+const iconContextConfig = { color: colors.boulder };
 
 const App = () => (
     <IconContext.Provider value={iconContextConfig}>

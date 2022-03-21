@@ -5,6 +5,8 @@
     "scripts": {
         "dev": "vite",
         "build": "tsc && vite build",
+        "lint": "eslint",
+        "type-check:watch": "tsc -w",
         "postbuild": "cp _redirects dist",
         "test": "jest",
         "preview": "vite preview"

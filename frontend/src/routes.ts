@@ -1,7 +1,7 @@
 import { generatePath } from 'react-router-dom';
 
 const routes = {
-    any: '*',
+    any: '*' as const,
     root: '/' as const,
     notFound: '/not-found' as const,
     folder: '/folder/*' as const,

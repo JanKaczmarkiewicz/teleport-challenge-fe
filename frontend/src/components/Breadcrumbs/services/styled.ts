@@ -6,7 +6,7 @@ export const Breadcrumb = styled(Link)`
     text-decoration: none;
     padding: 8px 16px;
     font-size: 18px;
-    color: ${colors.grey};
+    color: ${colors.gray};
     border-radius: 8px;
 
     :hover {

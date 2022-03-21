@@ -38,19 +38,19 @@ export const FolderRow = styled(Link)`
 export const IconWrapper = styled.div`
     display: flex;
     padding-inline: 16px;
-    color: ${colors.grey};
+    color: ${colors.gray};
     align-items: center;
 `;
 
 export const Cell = styled.div`
     display: flex;
     align-items: center;
-    color: ${colors.grey};
+    color: ${colors.gray};
 `;
 
 export const ColumnName = styled.div`
     font-weight: bold;
-    color: ${colors.grey};
+    color: ${colors.gray};
 `;
 
 export const Name = styled.div`

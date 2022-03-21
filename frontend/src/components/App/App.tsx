@@ -1,6 +1,6 @@
 import { IconContext } from 'react-icons';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import colors from '../../colors';
+import colors from '../../styleTokens/colors';
 import routes, { generateFolderPath } from '../../routes';
 import FilesPage from '../FilesPage/FilesPage';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';

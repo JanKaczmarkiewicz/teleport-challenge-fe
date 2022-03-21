@@ -1,6 +1,6 @@
 import { MdSentimentDissatisfied } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
-import iconSizes from '../../iconSizes';
+import iconSizes from '../../styleTokens/iconSizes';
 import Button from '../Button/Button';
 import { NotFoundPageContainer, MessageContiner } from './services/styled';
 

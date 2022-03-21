@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import colors from '../../../colors';
+import colors from '../../../styleTokens/colors';
 
 export const Breadcrumb = styled(Link)`
     text-decoration: none;
-    padding: 8px 16px;
+    padding: 0.5rem 1rem;
     font-size: 18px;
     color: ${colors.boulder};
-    border-radius: 8px;
+    border-radius: 0.5rem;
 
     :hover {
         background-color: ${colors.porcelain};

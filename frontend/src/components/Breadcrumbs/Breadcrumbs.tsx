@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import { MdKeyboardArrowRight } from 'react-icons/md';
-import iconSizes from '../../iconSizes';
+import iconSizes from '../../styleTokens/iconSizes';
 import { Breadcrumb, Containter } from './services/styled';
 
 type BreadcrumbProps = {

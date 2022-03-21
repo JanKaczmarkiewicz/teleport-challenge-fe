@@ -1,11 +1,11 @@
 import styled from 'styled-components';
-import colors from '../../../colors';
+import colors from '../../../styleTokens/colors';
 
 export const Button = styled.button`
     border: 1px solid ${colors.iron};
-    border-radius: 4px;
+    border-radius: 0.25rem;
     color: ${colors.shark};
     background-color: inherit;
     cursor: pointer;
-    padding: 8px 16px;
+    padding: 0.5rem 1rem;
 `;

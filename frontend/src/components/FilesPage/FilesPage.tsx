@@ -22,7 +22,7 @@ import {
     useCurrentDirectory,
 } from './services/helpers';
 import routes, { generateFolderPath } from '../../routes';
-import iconSizes from '../../iconSizes';
+import iconSizes from '../../styleTokens/iconSizes';
 import PageContainer from '../PageContainer/PageContainer';
 
 const FilesPage = () => {

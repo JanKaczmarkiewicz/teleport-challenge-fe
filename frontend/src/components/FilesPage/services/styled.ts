@@ -1,7 +1,7 @@
 import { MdArrowUpward } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
-import colors from '../../../colors';
+import colors from '../../../styleTokens/colors';
 import Breadcrumbs from '../../Breadcrumbs/Breadcrumbs';
 import Input from '../../Input/Input';
 
@@ -14,8 +14,8 @@ const rowStyles = css`
     align-items: center;
     border-bottom: 1px solid ${colors.iron};
     display: grid;
-    gap: 8px;
-    padding-inline: 6px;
+    gap: 0.5rem;
+    padding-inline: 0.5rem;
     grid-auto-columns: 1fr;
     grid-auto-flow: column;
     height: 48px;
@@ -37,7 +37,7 @@ export const FolderRow = styled(Link)`
 
 export const IconWrapper = styled.div`
     display: flex;
-    padding-inline: 16px;
+    padding-inline: 1rem;
     color: ${colors.boulder};
     align-items: center;
 `;
@@ -70,16 +70,16 @@ export const NameButton = styled.button`
     border: none;
     display: flex;
     cursor: pointer;
-    gap: 8px;
+    gap: 0.5rem;
     align-items: center;
     background-color: inherit;
     padding: 0;
 `;
 
 export const InputWithSpace = styled(Input)`
-    margin-bottom: 16px;
+    margin-bottom: 1rem;
 `;
 
 export const BreadcrumbsWithSpace = styled(Breadcrumbs)`
-    margin-bottom: 32px;
+    margin-bottom: 2rem;
 `;

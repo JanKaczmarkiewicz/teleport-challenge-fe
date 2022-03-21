@@ -133,7 +133,7 @@ export const useCurrentDirectory = () => {
     };
 };
 
-export const getBreadcumbs = (paths: string[]) => {
+export const getBreadcrumbs = (paths: string[]) => {
     const breadcrumbs = [
         {
             label: 'My folder',

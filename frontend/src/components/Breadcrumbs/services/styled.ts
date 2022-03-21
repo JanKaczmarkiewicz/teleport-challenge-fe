@@ -19,7 +19,7 @@ export const Breadcrumb = styled(Link)`
     }
 `;
 
-export const Containter = styled.nav`
+export const Container = styled.nav`
     display: flex;
     flex-direction: row;
     align-items: center;

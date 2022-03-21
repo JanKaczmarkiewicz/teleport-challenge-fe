@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import { MdKeyboardArrowRight } from 'react-icons/md';
 import iconSizes from '../../styleTokens/iconSizes';
-import { Breadcrumb, Containter } from './services/styled';
+import { Breadcrumb, Container } from './services/styled';
 
 type BreadcrumbProps = {
     items: { label: string; to: string }[];
@@ -12,7 +12,7 @@ const Breadcrumbs = ({ items, className }: BreadcrumbProps) => {
     const lastIndex = items.length - 1;
 
     return (
-        <Containter aria-label="Breadcrumb" className={className}>
+        <Container aria-label="Breadcrumb" className={className}>
             {items.map(({ to, label }, index) => (
                 <Fragment key={to}>
                     {index !== lastIndex ? (
@@ -27,7 +27,7 @@ const Breadcrumbs = ({ items, className }: BreadcrumbProps) => {
                     )}
                 </Fragment>
             ))}
-        </Containter>
+        </Container>
     );
 };
 

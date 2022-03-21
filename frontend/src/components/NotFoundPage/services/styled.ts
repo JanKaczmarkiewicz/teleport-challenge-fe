@@ -10,7 +10,7 @@ export const NotFoundPageContainer = styled(PageContainer)`
     align-items: center;
 `;
 
-export const MessageContiner = styled.div`
+export const MessageContainer = styled.div`
     display: flex;
     gap: 0.5rem;
     font-size: 24px;

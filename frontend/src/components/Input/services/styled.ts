@@ -23,12 +23,12 @@ export const InputWrapper = styled.div`
     }
 `;
 
-export const Input = styled.input<{ isFullwidth?: boolean }>`
+export const Input = styled.input<{ isFullWidth?: boolean }>`
     border: 1px solid ${colors.iron};
     border-radius: 0.25rem;
     height: 40px;
     color: ${colors.shark};
-    width: ${({ isFullwidth }) => (isFullwidth ? '100%' : '300px')};
+    width: ${({ isFullWidth }) => (isFullWidth ? '100%' : '300px')};
 
     ::placeholder {
         color: ${colors.boulder};

@@ -18,7 +18,7 @@ import {
 import {
     by,
     formatSize,
-    getBreadcumbs,
+    getBreadcrumbs,
     useCurrentDirectory,
 } from './services/helpers';
 import routes, { generateFolderPath } from '../../routes';
@@ -52,7 +52,7 @@ const FilesPage = () => {
     const files = orderedSortedItems.filter(({ type }) => type === 'file');
     const folders = orderedSortedItems.filter(({ type }) => type === 'dir');
 
-    const handleToogleOrder = () => {
+    const handleToggleOrder = () => {
         setIsDescending((current) => !current);
     };
 
@@ -62,7 +62,7 @@ const FilesPage = () => {
 
     return (
         <PageContainer>
-            <BreadcrumbsWithSpace items={getBreadcumbs(directoryParts)} />
+            <BreadcrumbsWithSpace items={getBreadcrumbs(directoryParts)} />
 
             <InputWithSpace
                 icon={<MdSearch size={iconSizes.medium} />}
@@ -74,7 +74,7 @@ const FilesPage = () => {
             <ListContainer>
                 <HeaderRow>
                     <Cell>
-                        <NameButton onClick={handleToogleOrder} type="button">
+                        <NameButton onClick={handleToggleOrder} type="button">
                             <ColumnName>Name</ColumnName>
                             <SortIcon
                                 isRotated={isDescending}

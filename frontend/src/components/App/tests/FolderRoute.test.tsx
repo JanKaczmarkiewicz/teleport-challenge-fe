@@ -18,7 +18,7 @@ test('should navigate between folders', async () => {
     expect(await screen.findByText('nested')).toBeInTheDocument();
 });
 
-test('should display formated size', async () => {
+test('should display formatted size', async () => {
     setup({ at: generateFolderPath(['nested', 'foo', 'bar']) });
 
     expect(await screen.findByText('500 B')).toBeInTheDocument();

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
-import { generatePath, useParams } from 'react-router-dom';
-import routes from '../../../routes';
+import { useParams } from 'react-router-dom';
+import { generateFolderPath } from '../../../routes';
 import { Location, Folder } from './types';
 
 const root: Location = {
@@ -127,11 +127,6 @@ export const useCurrentDirectory = () => {
         },
     };
 };
-
-export const generateFolderPath = (parts: string[] = ['']) =>
-    generatePath(routes.folder, {
-        '*': parts.join('/'),
-    });
 
 export const getBreadcumbs = (paths: string[]) => {
     const breadcrumbs = [

@@ -7,6 +7,11 @@ export const Breadcrumb = styled(Link)`
     padding: 8px 16px;
     font-size: 18px;
     color: ${colors.grey};
+    border-radius: 8px;
+
+    :hover {
+        background-color: ${colors.light};
+    }
 
     :last-of-type {
         color: ${colors.dark};

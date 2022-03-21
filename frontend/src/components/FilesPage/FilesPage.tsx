@@ -42,7 +42,7 @@ const FilesPage = () => {
     // NOTE: Sorting and filtering is an expensive operation on big data sets.
     // Right now, we don't need a memorization since every component update causes a change in options order or number.
     // Please verify that every time component functionality changes.
-    const sortedItems = [...data.items]
+    const sortedItems = data.items
         .filter(({ name }) => name.startsWith(inputValue))
         .sort(by('name'));
     const orderedSortedItems = isDescending

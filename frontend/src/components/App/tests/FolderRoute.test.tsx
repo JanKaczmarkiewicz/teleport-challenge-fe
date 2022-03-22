@@ -7,21 +7,21 @@ test('should navigate between folders', async () => {
     setup({ at: generateFolderPath() });
 
     // click on folder
-    userEvent.click(await screen.findByText('nested'));
+    userEvent.click(screen.getByText('nested'));
 
     // expect to be redirected to folder
-    expect(await screen.findByText('foo')).toBeInTheDocument();
+    expect(screen.getByText('foo')).toBeInTheDocument();
 
     // click on breadcrumb to return
-    userEvent.click(await screen.findByText('My folder'));
+    userEvent.click(screen.getByText('My folder'));
 
-    expect(await screen.findByText('nested')).toBeInTheDocument();
+    expect(screen.getByText('nested')).toBeInTheDocument();
 });
 
 test('should display formatted size', async () => {
     setup({ at: generateFolderPath('nested', 'foo', 'bar') });
 
-    expect(await screen.findByText('500 B')).toBeInTheDocument();
+    expect(screen.getByText('500 B')).toBeInTheDocument();
     expect(screen.getByText('320 kB')).toBeInTheDocument();
     expect(screen.getByText('3.32 MB')).toBeInTheDocument();
 });

@@ -1,5 +1,5 @@
 import { ChangeEventHandler, useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import { MdFolder, MdOutlineInsertDriveFile, MdSearch } from 'react-icons/md';
 import {
     Cell,
@@ -16,36 +16,28 @@ import {
     FolderRow,
     Header,
 } from './services/styled';
-import {
-    by,
-    formatSize,
-    getBreadcrumbs,
-    useCurrentDirectory,
-} from './services/helpers';
+import { by, formatSize, getBreadcrumbs, getFolder } from './services/helpers';
 import routes, { generateFolderPath } from '../../routes';
 import iconSizes from '../../styleTokens/iconSizes';
 import PageContainer from '../PageContainer/PageContainer';
 import { Location } from './services/types';
 
 const FilesPage = () => {
-    const {
-        isLoading,
-        directory: { data, directoryParts },
-    } = useCurrentDirectory();
-
+    const directoryPath = useParams<typeof routes.any>()['*'] || '';
     const [inputValue, setInputValue] = useState('');
     const [orderAttribute, setOrderAttribute] =
         useState<keyof Location>('name');
     const [isDescending, setIsDescending] = useState(false);
 
-    if (isLoading) return null;
+    const directoryParts = directoryPath.split('/').filter(Boolean);
+    const folderData = getFolder(directoryParts);
 
-    if (!data) return <Navigate replace to={routes.notFound} />;
+    if (!folderData) return <Navigate replace to={routes.notFound} />;
 
     // NOTE: Sorting and filtering is an expensive operation on big data sets.
     // Right now, we don't need a memorization since every component update causes a change in options order or number.
     // Please verify that every time component functionality changes.
-    const sortedItems = data.items
+    const sortedItems = folderData.items
         .filter(({ name }) => name.startsWith(inputValue))
         .sort(by(orderAttribute));
 

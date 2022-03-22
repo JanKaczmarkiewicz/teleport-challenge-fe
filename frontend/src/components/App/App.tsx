@@ -2,7 +2,7 @@ import { IconContext } from 'react-icons';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import colors from '../../styleTokens/colors';
 import routes, { generateFolderPath } from '../../routes';
-import FilesPage from '../FilesPage/FilesPage';
+import FolderPage from '../FolderPage/FolderPage';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
 
 const iconContextConfig = { color: colors.boulder };
@@ -14,7 +14,7 @@ const App = () => (
                 element={<Navigate to={generateFolderPath()} />}
                 path={routes.root}
             />
-            <Route element={<FilesPage />} path={routes.folder} />
+            <Route element={<FolderPage />} path={routes.folder} />
             <Route element={<NotFoundPage />} path={routes.any} />
         </Routes>
     </IconContext.Provider>

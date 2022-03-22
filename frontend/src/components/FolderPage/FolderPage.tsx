@@ -22,7 +22,7 @@ import iconSizes from '../../styleTokens/iconSizes';
 import PageContainer from '../PageContainer/PageContainer';
 import { Location } from './services/types';
 
-const FilesPage = () => {
+const FolderPage = () => {
     const directoryPath = useParams<typeof routes.any>()['*'] || '';
     const [inputValue, setInputValue] = useState('');
     const [orderAttribute, setOrderAttribute] =
@@ -133,4 +133,4 @@ const FilesPage = () => {
     );
 };
 
-export default FilesPage;
+export default FolderPage;

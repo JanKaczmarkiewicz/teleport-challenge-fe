@@ -12,6 +12,11 @@ const root: Location = {
             type: 'file',
         },
         {
+            name: 'lorem-ipsum-dolor-sit-amet.js',
+            sizeKb: 23,
+            type: 'file',
+        },
+        {
             name: 'nested',
             sizeKb: 0,
             type: 'dir',

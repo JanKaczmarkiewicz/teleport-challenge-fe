@@ -49,6 +49,8 @@ export const IconWrapper = styled.div`
 export const Cell = styled.div`
     display: flex;
     align-items: center;
+    overflow: hidden;
+    white-space: nowrap;
     color: ${colors.boulder};
 `;
 
@@ -59,6 +61,8 @@ export const ColumnName = styled.div`
 
 export const Name = styled.div`
     font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
     color: ${colors.tundora};
 `;
 

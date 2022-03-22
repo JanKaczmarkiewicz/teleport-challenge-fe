@@ -5,15 +5,16 @@ import {
     Cell,
     ColumnName,
     FileRow,
-    FolderRow,
     HeaderRow,
     IconWrapper,
     ListContainer,
     Name,
     SortIcon,
-    NameButton,
     InputWithSpace,
     BreadcrumbsWithSpace,
+    FolderLink,
+    ColumnNameButton,
+    FolderRow,
 } from './services/styled';
 import {
     by,
@@ -24,6 +25,7 @@ import {
 import routes, { generateFolderPath } from '../../routes';
 import iconSizes from '../../styleTokens/iconSizes';
 import PageContainer from '../PageContainer/PageContainer';
+import { Location } from './services/types';
 
 const FilesPage = () => {
     const {
@@ -32,7 +34,8 @@ const FilesPage = () => {
     } = useCurrentDirectory();
 
     const [inputValue, setInputValue] = useState('');
-
+    const [orderAttribute, setOrderAttribute] =
+        useState<keyof Location>('name');
     const [isDescending, setIsDescending] = useState(false);
 
     if (isLoading) return null;
@@ -44,7 +47,8 @@ const FilesPage = () => {
     // Please verify that every time component functionality changes.
     const sortedItems = data.items
         .filter(({ name }) => name.startsWith(inputValue))
-        .sort(by('name'));
+        .sort(by(orderAttribute));
+
     const orderedSortedItems = isDescending
         ? sortedItems.reverse()
         : sortedItems;
@@ -52,13 +56,20 @@ const FilesPage = () => {
     const files = orderedSortedItems.filter(({ type }) => type === 'file');
     const folders = orderedSortedItems.filter(({ type }) => type === 'dir');
 
-    const handleToggleOrder = () => {
-        setIsDescending((current) => !current);
+    const handleColumnNameClick = (columnName: keyof Location) => () => {
+        if (orderAttribute === columnName) {
+            setIsDescending((current) => !current);
+        }
+        setOrderAttribute(columnName);
     };
 
     const handleInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
         setInputValue(e.target.value);
     };
+
+    const sortIcon = (
+        <SortIcon isRotated={isDescending} size={iconSizes.medium} />
+    );
 
     return (
         <PageContainer>
@@ -74,33 +85,40 @@ const FilesPage = () => {
             <ListContainer>
                 <HeaderRow>
                     <Cell>
-                        <NameButton onClick={handleToggleOrder} type="button">
+                        <ColumnNameButton
+                            onClick={handleColumnNameClick('name')}
+                            type="button"
+                        >
                             <ColumnName>Name</ColumnName>
-                            <SortIcon
-                                isRotated={isDescending}
-                                size={iconSizes.medium}
-                            />
-                        </NameButton>
+                            {orderAttribute === 'name' && sortIcon}
+                        </ColumnNameButton>
                     </Cell>
 
                     <Cell>
-                        <ColumnName>Size</ColumnName>
+                        <ColumnNameButton
+                            onClick={handleColumnNameClick('sizeKb')}
+                            type="button"
+                        >
+                            <ColumnName>Size</ColumnName>
+                            {orderAttribute === 'sizeKb' && sortIcon}
+                        </ColumnNameButton>
                     </Cell>
                 </HeaderRow>
 
                 {folders.map(({ name }) => (
-                    <FolderRow
-                        key={name}
-                        to={generateFolderPath([...directoryParts, name])}
-                    >
-                        <Cell>
-                            <IconWrapper>
-                                <MdFolder size={iconSizes.large} />
-                            </IconWrapper>
-                            <Name>{name}</Name>
-                        </Cell>
+                    <FolderRow key={name}>
+                        <FolderLink
+                            to={generateFolderPath([...directoryParts, name])}
+                        >
+                            <Cell>
+                                <IconWrapper>
+                                    <MdFolder size={iconSizes.large} />
+                                </IconWrapper>
+                                <Name>{name}</Name>
+                            </Cell>
 
-                        <Cell>-</Cell>
+                            <Cell>-</Cell>
+                        </FolderLink>
                     </FolderRow>
                 ))}
 

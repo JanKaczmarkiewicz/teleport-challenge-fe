@@ -25,11 +25,3 @@ test('should display formatted size', async () => {
     expect(screen.getByText('320 kB')).toBeInTheDocument();
     expect(screen.getByText('3.32 MB')).toBeInTheDocument();
 });
-
-test('should filter by name attribute', async () => {
-    setup({ at: generateFolderPath('nested', 'foo', 'bar') });
-
-    expect(await screen.findByText('500 B')).toBeInTheDocument();
-    expect(screen.getByText('320 kB')).toBeInTheDocument();
-    expect(screen.getByText('3.32 MB')).toBeInTheDocument();
-});

@@ -15,6 +15,7 @@ import {
     FolderLink,
     ColumnNameButton,
     FolderRow,
+    Header,
 } from './services/styled';
 import {
     by,
@@ -82,29 +83,29 @@ const FilesPage = () => {
                 value={inputValue}
             />
 
+            <Header>
+                <Cell>
+                    <ColumnNameButton
+                        onClick={handleColumnNameClick('name')}
+                        type="button"
+                    >
+                        <ColumnName>Name</ColumnName>
+                        {orderAttribute === 'name' && sortIcon}
+                    </ColumnNameButton>
+                </Cell>
+
+                <Cell>
+                    <ColumnNameButton
+                        onClick={handleColumnNameClick('sizeKb')}
+                        type="button"
+                    >
+                        <ColumnName>Size</ColumnName>
+                        {orderAttribute === 'sizeKb' && sortIcon}
+                    </ColumnNameButton>
+                </Cell>
+            </Header>
+
             <ListContainer>
-                <HeaderRow>
-                    <Cell>
-                        <ColumnNameButton
-                            onClick={handleColumnNameClick('name')}
-                            type="button"
-                        >
-                            <ColumnName>Name</ColumnName>
-                            {orderAttribute === 'name' && sortIcon}
-                        </ColumnNameButton>
-                    </Cell>
-
-                    <Cell>
-                        <ColumnNameButton
-                            onClick={handleColumnNameClick('sizeKb')}
-                            type="button"
-                        >
-                            <ColumnName>Size</ColumnName>
-                            {orderAttribute === 'sizeKb' && sortIcon}
-                        </ColumnNameButton>
-                    </Cell>
-                </HeaderRow>
-
                 {folders.map(({ name }) => (
                     <FolderRow key={name}>
                         <FolderLink

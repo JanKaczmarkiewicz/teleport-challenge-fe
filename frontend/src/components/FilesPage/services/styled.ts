@@ -18,6 +18,8 @@ const rowStyles = css`
 
 export const ListContainer = styled.ul`
     display: flex;
+    padding: 0;
+    margin: 0;
     flex-direction: column;
     list-style-type: none;
 `;
@@ -29,7 +31,7 @@ export const FileRow = styled.li`
 
 export const FolderRow = styled.li``;
 
-export const HeaderRow = styled.li`
+export const Header = styled.div`
     ${rowStyles}
 `;
 

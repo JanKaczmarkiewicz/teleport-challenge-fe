@@ -144,7 +144,7 @@ export const getBreadcrumbs = (paths: string[]) => {
     for (const [index, label] of paths.entries())
         breadcrumbs.push({
             label,
-            to: generateFolderPath(paths.slice(0, index + 1)),
+            to: generateFolderPath(...paths.slice(0, index + 1)),
         });
 
     return breadcrumbs;

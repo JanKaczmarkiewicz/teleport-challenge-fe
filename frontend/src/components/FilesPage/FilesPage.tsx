@@ -5,7 +5,6 @@ import {
     Cell,
     ColumnName,
     FileRow,
-    HeaderRow,
     IconWrapper,
     ListContainer,
     Name,
@@ -109,7 +108,7 @@ const FilesPage = () => {
                 {folders.map(({ name }) => (
                     <FolderRow key={name}>
                         <FolderLink
-                            to={generateFolderPath([...directoryParts, name])}
+                            to={generateFolderPath(...directoryParts, name)}
                         >
                             <Cell>
                                 <IconWrapper>

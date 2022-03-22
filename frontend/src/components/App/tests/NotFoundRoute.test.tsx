@@ -9,7 +9,7 @@ test('should render 404 page', async () => {
 });
 
 test('should render 404 page when no folder found', async () => {
-    setup({ at: generateFolderPath(['foo', 'bar']) });
+    setup({ at: generateFolderPath('foo', 'bar') });
 
     expect(await screen.findByText('Page not found')).toBeInTheDocument();
 });

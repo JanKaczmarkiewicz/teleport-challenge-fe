@@ -7,7 +7,7 @@ const routes = {
     folder: '/folder/*' as const,
 };
 
-export const generateFolderPath = (parts: string[] = ['']) =>
+export const generateFolderPath = (...parts: string[]) =>
     generatePath(routes.folder, {
         '*': parts.join('/'),
     });

@@ -36,10 +36,10 @@ const ROOT_DIRECTORY: Directory = Directory {
     ],
 };
 
-pub fn get_folder(paths: Vec<&str>) -> Option<&Directory> {
+pub fn get_folder(path: Vec<&str>) -> Option<&Directory> {
     let mut current_location = &ROOT_DIRECTORY;
 
-    for name in paths {
+    for name in path {
         let found_directory = current_location.items.into_iter().find_map(|location| {
             if let Location::Directory(child_directory) = location {
                 if child_directory.name == name {

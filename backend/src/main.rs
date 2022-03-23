@@ -47,9 +47,9 @@ impl FolderResponse {
 
 #[get("/folder/<path..>")]
 fn folder(path: PathBuf) -> Result<Json<FolderResponse>, Status> {
-    let path_steps: Vec<&str> = path.to_str().unwrap().split("/").collect();
+    let path: Vec<&str> = path.to_str().unwrap().split("/").collect();
 
-    let found_folder = get_folder(path_steps);
+    let found_folder = get_folder(path);
 
     if let Some(folder) = found_folder {
         Ok(Json(FolderResponse::from(folder)))

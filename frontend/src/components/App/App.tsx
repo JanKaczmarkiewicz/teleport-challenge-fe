@@ -35,7 +35,14 @@ const App = () => (
                     }
                     path={routes.login}
                 />
-                <Route element={<NotFoundPage />} path={routes.any} />
+                <Route
+                    element={
+                        <LoggedOnlyRoute>
+                            <NotFoundPage />
+                        </LoggedOnlyRoute>
+                    }
+                    path={routes.any}
+                />
             </Routes>
         </IconContext.Provider>
     </AuthenticationProvider>

@@ -4,7 +4,7 @@ type Init = Omit<RequestInit, 'method'> & {
     method: 'GET' | 'POST' | 'DELETE';
 };
 
-const request = <T>(path: `/${string}`, init?: Init): Promise<T> =>
-    fetch(`${BACKEND_URL}${path}`, init).then((res) => res.json());
+const request = (path: `/${string}`, init?: Init) =>
+    fetch(`${BACKEND_URL}${path}`, init);
 
 export default request;

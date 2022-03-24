@@ -4,6 +4,7 @@ import colors from '../../styleTokens/colors';
 import routes, { generateFolderPath } from '../../routes';
 import FolderPage from '../FolderPage/FolderPage';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
+import PrivateRoute from '../PrivateRoute/PrivateRoute';
 
 const iconContextConfig = { color: colors.boulder };
 
@@ -14,7 +15,14 @@ const App = () => (
                 element={<Navigate to={generateFolderPath()} />}
                 path={routes.root}
             />
-            <Route element={<FolderPage />} path={routes.folder} />
+            <Route
+                element={
+                    <PrivateRoute>
+                        <FolderPage />
+                    </PrivateRoute>
+                }
+                path={routes.folder}
+            />
             <Route element={<NotFoundPage />} path={routes.any} />
         </Routes>
     </IconContext.Provider>

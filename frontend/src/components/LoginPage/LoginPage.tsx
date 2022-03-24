@@ -1,5 +1,4 @@
 import { FormEventHandler } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../AuthenticationProvider/services/helpers';
 import Button from '../Button/Button';
 import Input from '../Input/Input';
@@ -10,7 +9,6 @@ const PASSWORD = 'password';
 
 const LoginPage = () => {
     const { login } = useAuth();
-    const navigate = useNavigate();
 
     const onSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
         e.preventDefault();
@@ -21,13 +19,9 @@ const LoginPage = () => {
             username: formValues[USERNAME].toString(),
         };
 
-        login(body)
-            .then(() => {
-                navigate('/');
-            })
-            .catch(() => {
-                //show error to user
-            });
+        login(body).catch(() => {
+            //show error to user
+        });
     };
 
     return (

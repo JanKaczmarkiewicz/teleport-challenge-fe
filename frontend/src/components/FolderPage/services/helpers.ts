@@ -53,7 +53,7 @@ export const useFolderData = () => {
 
     useEffect(() => {
         setData('loading');
-        request(`/folder${folderPath}`, {
+        request(`/folder/${folderPath}`, {
             method: 'GET',
             credentials: 'include',
         })

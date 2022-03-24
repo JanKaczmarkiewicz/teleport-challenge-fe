@@ -1,11 +1,14 @@
 import { ReactElement } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import routes from '../../../routes';
 import { useAuth } from '../services/helpers';
 
 const NotLoggedOnlyRoute = ({ children }: { children: ReactElement }) => {
     const { isAuthenticated } = useAuth();
-    return isAuthenticated ? <Navigate replace to={routes.root} /> : children;
+    const { state } = useLocation();
+
+    const to = state?.referer || routes.folder;
+    return isAuthenticated ? <Navigate replace state={{}} to={to} /> : children;
 };
 
 export default NotLoggedOnlyRoute;

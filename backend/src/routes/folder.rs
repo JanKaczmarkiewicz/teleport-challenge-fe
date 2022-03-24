@@ -44,7 +44,13 @@ impl FolderResponse {
 
 #[get("/<path..>")]
 pub fn folder_data(path: PathBuf, _auth: Auth) -> Result<Json<FolderResponse>, Status> {
-    let path: Vec<&str> = path.to_str().unwrap().split("/").collect();
+    let path: Vec<&str> = path
+        .to_str()
+        .unwrap()
+        .split("/")
+        .filter(|part| !part.is_empty())
+        .collect();
+
     let found_folder = get_folder(path);
 
     if let Some(folder) = found_folder {

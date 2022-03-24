@@ -3,11 +3,11 @@ import Button from '../Button/Button';
 import { Container } from './services/styled';
 import { PageContainerProps } from './services/types';
 
-const PageContainer = ({ className, children }: PageContainerProps) => {
+const PageContainer = ({ children }: PageContainerProps) => {
     const { isAuthenticated, logout } = useAuth();
 
     return (
-        <Container className={className}>
+        <Container>
             {isAuthenticated && <Button onClick={logout}>Logout</Button>}
             {children}
         </Container>

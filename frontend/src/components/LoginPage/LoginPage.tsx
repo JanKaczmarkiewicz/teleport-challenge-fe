@@ -2,7 +2,8 @@ import { FormEventHandler } from 'react';
 import { useAuth } from '../AuthenticationProvider/services/helpers';
 import Button from '../Button/Button';
 import Input from '../Input/Input';
-import { Form, Text, LoginPageContainer } from './services/styled';
+import PageContainer from '../PageContainer/PageContainer';
+import { Form, Text, Wrapper } from './services/styled';
 
 const USERNAME = 'username';
 const PASSWORD = 'password';
@@ -25,24 +26,26 @@ const LoginPage = () => {
     };
 
     return (
-        <LoginPageContainer>
-            <Form onSubmit={onSubmit}>
-                <Text>Welcome back!</Text>
-                <Input
-                    isFullWidth
-                    name={USERNAME}
-                    placeholder="username"
-                    type="text"
-                />
-                <Input
-                    isFullWidth
-                    name={PASSWORD}
-                    placeholder="password"
-                    type="password"
-                />
-                <Button>Login</Button>
-            </Form>
-        </LoginPageContainer>
+        <PageContainer>
+            <Wrapper>
+                <Form onSubmit={onSubmit}>
+                    <Text>Welcome back!</Text>
+                    <Input
+                        isFullWidth
+                        name={USERNAME}
+                        placeholder="username"
+                        type="text"
+                    />
+                    <Input
+                        isFullWidth
+                        name={PASSWORD}
+                        placeholder="password"
+                        type="password"
+                    />
+                    <Button>Login</Button>
+                </Form>
+            </Wrapper>
+        </PageContainer>
     );
 };
 

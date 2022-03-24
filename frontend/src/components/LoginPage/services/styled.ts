@@ -1,12 +1,5 @@
 import styled from 'styled-components';
 import colors from '../../../styleTokens/colors';
-import PageContainer from '../../PageContainer/PageContainer';
-
-export const LoginPageContainer = styled(PageContainer)`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-`;
 
 export const Form = styled.form`
     display: flex;
@@ -25,4 +18,12 @@ export const Form = styled.form`
 export const Text = styled.span`
     font-size: 24px;
     color: ${colors.shark};
+`;
+
+export const Wrapper = styled.div`
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `;

@@ -1,6 +1,6 @@
 import { useAuth } from '../AuthenticationProvider/services/helpers';
 import Button from '../Button/Button';
-import { Container } from './services/styled';
+import { Container, ButtonWrapper } from './services/styled';
 import { PageContainerProps } from './services/types';
 
 const PageContainer = ({ children }: PageContainerProps) => {
@@ -8,7 +8,11 @@ const PageContainer = ({ children }: PageContainerProps) => {
 
     return (
         <Container>
-            {isAuthenticated && <Button onClick={logout}>Logout</Button>}
+            {isAuthenticated && (
+                <ButtonWrapper>
+                    <Button onClick={logout}>Logout</Button>
+                </ButtonWrapper>
+            )}
             {children}
         </Container>
     );

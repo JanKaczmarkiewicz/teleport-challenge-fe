@@ -1,6 +1,6 @@
 use rocket::{
     delete, get,
-    http::{Cookie, CookieJar, Status},
+    http::{Cookie, CookieJar, SameSite, Status},
     post,
     serde::json::Json,
 };
@@ -17,7 +17,10 @@ pub struct Credentials<'a> {
 #[post("/", format = "json", data = "<credentials>")]
 pub fn login(cookies: &CookieJar<'_>, credentials: Json<Credentials<'_>>) -> Result<(), Status> {
     if let Some(user) = get_user_by_credentials(credentials.username, credentials.password) {
-        let cookie = Cookie::build(TOKEN, user.id).http_only(true).finish();
+        let cookie = Cookie::build(TOKEN, user.id)
+            .secure(true)
+            .same_site(SameSite::None)
+            .finish();
 
         cookies.add_private(cookie);
         return Ok(());

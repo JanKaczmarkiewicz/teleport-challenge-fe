@@ -7,7 +7,7 @@ const NotLoggedOnlyRoute = ({ children }: { children: ReactElement }) => {
     const { isAuthenticated } = useAuth();
     const { state } = useLocation();
 
-    const to = state?.referer || routes.folder;
+    const to = state?.referrer || routes.root;
     return isAuthenticated ? <Navigate replace state={{}} to={to} /> : children;
 };
 

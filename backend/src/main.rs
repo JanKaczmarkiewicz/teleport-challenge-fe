@@ -3,7 +3,7 @@ extern crate rocket;
 
 use backend::{
     cors::CORS,
-    routes::{folder, session},
+    routes::{folder, global, session},
 };
 use rocket::routes;
 
@@ -11,9 +11,10 @@ use rocket::routes;
 fn rocket() -> _ {
     rocket::build()
         .attach(CORS)
+        .mount("/", routes![global::cors])
         .mount("/folder", routes![folder::folder_data])
         .mount(
             "/session",
-            routes![session::login, session::logout, session::is_logged],
+            routes![session::login, session::logout, session::is_logged,],
         )
 }

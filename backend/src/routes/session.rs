@@ -14,7 +14,7 @@ pub struct Credentials<'a> {
     password: &'a str,
 }
 
-#[post("/", format = "application/json", data = "<credentials>")]
+#[post("/", format = "json", data = "<credentials>")]
 pub fn login(cookies: &CookieJar<'_>, credentials: Json<Credentials<'_>>) -> Result<(), Status> {
     if let Some(user) = get_user_by_credentials(credentials.username, credentials.password) {
         let cookie = Cookie::build(TOKEN, user.id).http_only(true).finish();

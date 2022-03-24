@@ -1,112 +1,8 @@
-import { generateFolderPath } from '../../../routes';
-import { Location, Folder } from './types';
-
-const root: Location = {
-    name: 'root',
-    sizeKb: 0,
-    type: 'dir',
-    items: [
-        {
-            name: 'index.js',
-            sizeKb: 2333,
-            type: 'file',
-        },
-        {
-            name: 'lorem-ipsum-dolor-sit-amet.js',
-            sizeKb: 23,
-            type: 'file',
-        },
-        {
-            name: 'nested',
-            sizeKb: 0,
-            type: 'dir',
-            items: [
-                {
-                    name: 'foo',
-                    sizeKb: 0,
-                    type: 'dir',
-                    items: [
-                        {
-                            name: 'bar',
-                            sizeKb: 0,
-                            type: 'dir',
-                            items: [
-                                {
-                                    name: 'main.js',
-                                    sizeKb: 0.5,
-                                    type: 'file',
-                                },
-                                {
-                                    name: 'teleport.go',
-                                    sizeKb: 320,
-                                    type: 'file',
-                                },
-                                {
-                                    name: 'test.go',
-                                    sizeKb: 3320,
-                                    type: 'file',
-                                },
-                            ],
-                        },
-                        {
-                            name: 'test.go',
-                            sizeKb: 3320,
-                            type: 'file',
-                        },
-                    ],
-                },
-            ],
-        },
-        {
-            name: 'favorites',
-            sizeKb: 0,
-            type: 'dir',
-            items: [],
-        },
-        {
-            name: 'music',
-            sizeKb: 0,
-            type: 'dir',
-            items: [],
-        },
-        {
-            name: 'css',
-            sizeKb: 0,
-            type: 'dir',
-            items: [],
-        },
-        {
-            name: 'db',
-            sizeKb: 12476236523,
-            type: 'file',
-        },
-
-        {
-            name: 'README.md',
-            sizeKb: 0,
-            type: 'file',
-        },
-    ],
-};
-
-export const getFolder = (directoryParts: string[]) => {
-    let currentFolder: Folder = root;
-
-    for (const name of directoryParts) {
-        const foundItem = currentFolder.items.find(
-            (item) => item.name === name
-        );
-
-        // no item found
-        if (!foundItem) return null;
-
-        // found file
-        if (!('items' in foundItem)) return null;
-
-        currentFolder = foundItem;
-    }
-    return currentFolder;
-};
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import request from '../../../request';
+import routes, { generateFolderPath } from '../../../routes';
+import { FolderData } from './types';
 
 export const getBreadcrumbs = (paths: string[]) => {
     const breadcrumbs = [
@@ -145,3 +41,31 @@ export const formatSize = (sizeKb: number) => {
 
     return `${value} ${unit}`;
 };
+
+export const useCurrentFolderPath = () =>
+    useParams<typeof routes.any>()['*'] || '';
+
+export const useFolderData = () => {
+    const folderPath = useCurrentFolderPath();
+    const [data, setData] = useState<'loading' | 'error' | FolderData>(
+        'loading'
+    );
+
+    useEffect(() => {
+        setData('loading');
+        request(`/folder${folderPath}`, {
+            method: 'GET',
+            credentials: 'include',
+        })
+            .then((res) => res.json())
+            .then(setData)
+            .catch(() => {
+                setData('error');
+            });
+    }, [folderPath]);
+
+    return data;
+};
+
+export const parseFolderPath = (path: string) =>
+    path.split('/').filter(Boolean);

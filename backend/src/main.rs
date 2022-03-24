@@ -1,12 +1,16 @@
 #[macro_use]
 extern crate rocket;
 
-use backend::routes::{folder, session};
+use backend::{
+    cors::CORS,
+    routes::{folder, session},
+};
 use rocket::routes;
 
 #[launch]
 fn rocket() -> _ {
     rocket::build()
+        .attach(CORS)
         .mount("/folder", routes![folder::folder_data])
         .mount(
             "/session",

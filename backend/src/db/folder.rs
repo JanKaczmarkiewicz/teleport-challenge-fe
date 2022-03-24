@@ -1,5 +1,5 @@
 pub struct File {
-    pub size_kb: u32,
+    pub size_kb: f64,
     pub name: &'static str,
 }
 
@@ -14,24 +14,61 @@ pub struct Directory {
 }
 
 const ROOT_DIRECTORY: Directory = Directory {
-    name: "teleport",
+    name: "root",
     items: &[
+        Location::File(File {
+            name: "index.js",
+            size_kb: 2333.0,
+        }),
+        Location::File(File {
+            name: "lorem-ipsum-dolor-sit-amet.js",
+            size_kb: 23.0,
+        }),
         Location::Directory(Directory {
-            name: "lib",
+            name: "nested",
             items: &[
-                Location::File(File {
-                    name: "teleport.go",
-                    size_kb: 320,
+                Location::Directory(Directory {
+                    name: "bar",
+                    items: &[
+                        Location::File(File {
+                            name: "main.js",
+                            size_kb: 0.5,
+                        }),
+                        Location::File(File {
+                            name: "teleport.go",
+                            size_kb: 320.0,
+                        }),
+                        Location::File(File {
+                            name: "test.go",
+                            size_kb: 3320.0,
+                        }),
+                    ],
                 }),
                 Location::File(File {
                     name: "test.go",
-                    size_kb: 3320,
+                    size_kb: 3320.5,
                 }),
             ],
         }),
+        Location::Directory(Directory {
+            name: "favorites",
+            items: &[],
+        }),
+        Location::Directory(Directory {
+            name: "music",
+            items: &[],
+        }),
+        Location::Directory(Directory {
+            name: "css",
+            items: &[],
+        }),
         Location::File(File {
+            name: "db",
+            size_kb: 1247623652.0,
+        }),
+        Location::Directory(Directory {
             name: "README.md",
-            size_kb: 4340,
+            items: &[],
         }),
     ],
 };

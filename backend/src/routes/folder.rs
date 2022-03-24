@@ -9,7 +9,7 @@ use std::path::PathBuf;
 #[derive(Debug, Serialize)]
 #[serde(rename_all = "camelCase")]
 struct FolderItem {
-    size_kb: u32,
+    size_kb: f64,
     name: &'static str,
     r#type: &'static str,
 }
@@ -27,7 +27,7 @@ impl FolderResponse {
             .map(|item| match item {
                 &Location::Directory(Directory { name, items: _ }) => FolderItem {
                     name,
-                    size_kb: 0,
+                    size_kb: 0.0,
                     r#type: "dir",
                 },
                 &Location::File(File { name, size_kb }) => FolderItem {

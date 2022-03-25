@@ -26,7 +26,7 @@ pub fn login(cookies: &CookieJar<'_>, credentials: Json<Credentials<'_>>) -> Res
         return Ok(());
     }
 
-    Err(Status::BadRequest)
+    Err(Status::Unauthorized)
 }
 
 #[get("/")]

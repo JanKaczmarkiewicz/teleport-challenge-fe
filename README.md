@@ -3,6 +3,7 @@
 The goal is to create a safe web application for browsing folders.
 
 - [Folder app](#folder-app)
+  - [Run locally](#run-locally)
   - [Frontend](#frontend)
     - [Assets server](#assets-server)
     - [Tooling](#tooling)
@@ -22,6 +23,12 @@ The goal is to create a safe web application for browsing folders.
   - [Security considerations](#security-considerations)
   - [Branch naming convention](#branch-naming-convention)
   - [Tests](#tests)
+
+## Run locally
+
+```
+docker-compose up
+```
 
 ## Frontend
 

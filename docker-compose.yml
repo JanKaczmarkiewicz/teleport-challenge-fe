@@ -3,7 +3,6 @@ services:
   backend:
     build: ./backend
     environment:
-      ROCKET_ENV: debug
       ROCKET_ADDRESS: 0.0.0.0
     ports:
       - "8000:8000"
@@ -11,4 +10,4 @@ services:
   frontend:
     build: ./frontend
     ports:
-      - "9000:80"
+      - "3000:80"

@@ -52,23 +52,48 @@ const ROOT_DIRECTORY: Directory = Directory {
         }),
         Location::Directory(Directory {
             name: "favorites",
-            items: &[],
+            items: &[
+                Location::File(File {
+                    name: "main.ts",
+                    size_kb: 10.0,
+                }),
+                Location::File(File {
+                    name: "test.go",
+                    size_kb: 33.0,
+                }),
+            ],
         }),
         Location::Directory(Directory {
             name: "music",
-            items: &[],
+            items: &[
+                Location::File(File {
+                    name: "1.wav",
+                    size_kb: 10.0,
+                }),
+                Location::File(File {
+                    name: "2.wav",
+                    size_kb: 3100.0,
+                }),
+                Location::File(File {
+                    name: "4.wav",
+                    size_kb: 33.0,
+                }),
+            ],
         }),
         Location::Directory(Directory {
             name: "css",
-            items: &[],
+            items: &[Location::File(File {
+                name: "style.css",
+                size_kb: 21.0,
+            })],
         }),
         Location::File(File {
             name: "db",
             size_kb: 1247623652.0,
         }),
-        Location::Directory(Directory {
+        Location::File(File {
             name: "README.md",
-            items: &[],
+            size_kb: 652.0,
         }),
     ],
 };

@@ -10,6 +10,7 @@ WORKDIR /usr/workdir
 
 COPY --from=builder /usr/workdir/Rocket.toml .
 COPY --from=builder /usr/local/cargo/bin/backend .
+COPY --from=builder /usr/workdir/root .
 
 EXPOSE 8000
 CMD ./backend

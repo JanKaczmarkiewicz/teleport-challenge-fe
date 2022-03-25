@@ -1,6 +1,6 @@
 use crate::{
     auth::Auth,
-    db::folder::{get_folder, Directory, File, Location},
+    db::folder::{get_folder, Directory, DirectoryData, File, Location},
 };
 use ::serde::Serialize;
 use rocket::{get, http::Status, serde::json::Json};
@@ -10,27 +10,27 @@ use std::path::PathBuf;
 #[serde(rename_all = "camelCase")]
 struct FolderItem {
     size_kb: f64,
-    name: &'static str,
+    name: String,
     r#type: &'static str,
 }
 
 #[derive(Debug, Serialize)]
 pub struct FolderResponse {
-    name: &'static str,
+    name: String,
     items: Vec<FolderItem>,
 }
 
 impl FolderResponse {
-    fn from(Directory { name, items }: &Directory) -> Self {
+    fn from(DirectoryData { name, items }: DirectoryData) -> Self {
         let items: Vec<_> = items
-            .iter()
+            .into_iter()
             .map(|item| match item {
-                &Location::Directory(Directory { name, items: _ }) => FolderItem {
+                Location::Directory(Directory { name }) => FolderItem {
                     name,
                     size_kb: 0.0,
                     r#type: "dir",
                 },
-                &Location::File(File { name, size_kb }) => FolderItem {
+                Location::File(File { name, size_kb }) => FolderItem {
                     r#type: "file",
                     name,
                     size_kb,
@@ -44,13 +44,6 @@ impl FolderResponse {
 
 #[get("/<path..>")]
 pub fn folder_data(path: PathBuf, _auth: Auth) -> Result<Json<FolderResponse>, Status> {
-    let path: Vec<&str> = path
-        .to_str()
-        .unwrap_or_default()
-        .split("/")
-        .filter(|part| !part.is_empty())
-        .collect();
-
     let found_folder = get_folder(path);
 
     if let Some(folder) = found_folder {

@@ -5,6 +5,9 @@ type Init = Omit<RequestInit, 'method'> & {
 };
 
 const request = (path: `/${string}`, init?: Init) =>
-    fetch(`${BACKEND_URL}${path}`, init);
+    fetch(`${BACKEND_URL}${path}`, init).then((res) => {
+        if (!res.ok) throw res;
+        return res;
+    });
 
 export default request;

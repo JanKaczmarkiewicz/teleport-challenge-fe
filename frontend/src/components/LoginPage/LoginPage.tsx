@@ -13,11 +13,16 @@ const LoginPage = () => {
 
     const onSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
         e.preventDefault();
-        const formValues = Object.fromEntries(new FormData(e.currentTarget));
+        const formValues = new FormData(e.currentTarget);
+
+        const password = formValues.get(PASSWORD);
+        const username = formValues.get(USERNAME);
+
+        if (!password || !username) return; //show error to user
 
         const body = {
-            password: formValues[PASSWORD].toString(),
-            username: formValues[USERNAME].toString(),
+            password: password.toString(),
+            username: username.toString(),
         };
 
         login(body).catch(() => {
@@ -42,7 +47,7 @@ const LoginPage = () => {
                         placeholder="password"
                         type="password"
                     />
-                    <Button>Login</Button>
+                    <Button type="submit">Login</Button>
                 </Form>
             </Wrapper>
         </PageContainer>

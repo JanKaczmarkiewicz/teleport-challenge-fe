@@ -36,6 +36,19 @@ mod test {
     }
 
     #[test]
+    fn login_with_invalid_credentials_results_in_error() {
+        let rocket = rocket();
+        let client = Client::tracked(rocket).unwrap();
+        let response = client
+            .post("/session")
+            .header(ContentType::JSON)
+            .body(r#"{ "username": "Patricia12", "password": "badpassword" }"#)
+            .dispatch();
+
+        assert_eq!(response.status(), Status::Unauthorized);
+    }
+
+    #[test]
     fn authenticated_user_can_access_folder_data() {
         let rocket = rocket();
         let client = Client::tracked(rocket).unwrap();

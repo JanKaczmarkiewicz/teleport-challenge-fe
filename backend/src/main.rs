@@ -23,7 +23,7 @@ fn rocket() -> _ {
 mod test {
     use super::rocket;
     use rocket::{
-        http::{ContentType, Status},
+        http::{ContentType, SameSite, Status},
         local::blocking::Client,
     };
 
@@ -51,6 +51,7 @@ mod test {
         assert_eq!(login_response.status(), Status::Ok);
         assert_eq!(token_cookie.http_only().unwrap(), true);
         assert_eq!(token_cookie.secure().unwrap(), true);
+        assert_eq!(token_cookie.same_site().unwrap(), SameSite::None);
         assert_eq!(token_cookie.value(), "1");
 
         let response = client.get("/folder").dispatch();

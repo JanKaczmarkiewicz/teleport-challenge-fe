@@ -46,7 +46,7 @@ impl FolderResponse {
 pub fn folder_data(path: PathBuf, _auth: Auth) -> Result<Json<FolderResponse>, Status> {
     let path: Vec<&str> = path
         .to_str()
-        .unwrap()
+        .unwrap_or_default()
         .split("/")
         .filter(|part| !part.is_empty())
         .collect();

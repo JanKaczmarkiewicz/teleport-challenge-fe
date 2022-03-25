@@ -26,11 +26,17 @@ The goal is to create a safe web application for browsing folders.
 
 ## Run locally
 
-```
-docker-compose up
-```
+1. for viewing and testing visually use `docker`:
 
-App will be available at:
+   - start app `docker-compose up`
+   - rebuild (after pull or local changes) `docker-compose up --build`
+
+2. for debugging/developing use following:
+
+   - run frontend `cd frontend && npm run dev` (requires `node`, I use `v14.19.0`)
+   - run backend `cd backend && cargo run` (requires `cargo`, I use `1.59.0`)
+
+In both cases app will be available at:
 
 - frontend: http://localhost:3000
 - backend: http://localhost:8000

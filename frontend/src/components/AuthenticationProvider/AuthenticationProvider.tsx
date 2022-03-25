@@ -23,9 +23,11 @@ const AuthenticationProvider = ({ children }: { children: ReactElement }) => {
             body: JSON.stringify(payload),
             credentials: 'include',
             headers: { 'Content-Type': 'application/json' },
-        }).then(() => {
-            setIsAuthenticated(true);
-        });
+        })
+            .then((req) => req.text())
+            .then(() => {
+                setIsAuthenticated(true);
+            });
 
     const logout: ContextValue['logout'] = () =>
         request(ENDPOINT, {

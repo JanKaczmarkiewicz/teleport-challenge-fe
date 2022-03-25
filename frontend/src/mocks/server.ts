@@ -1,5 +1,6 @@
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
+import { BACKEND_URL } from '../env';
 
 // TODO: test with cookies https://mswjs.io/docs/recipes/cookies
 const SESSION_KEY = 'is-authenticated';
@@ -13,9 +14,12 @@ const session = {
     },
 };
 
+const SESSION_ENDPOINT_URL = `${BACKEND_URL}/session`;
+const FOLDER_ENDPOINT_URL = `${BACKEND_URL}/folder/*`;
+
 export const handlers = [
     rest.post<{ username: string; password: string }>(
-        'http://localhost:8000/session',
+        SESSION_ENDPOINT_URL,
         (req, res, ctx) => {
             const { username, password } = req.body;
 
@@ -27,14 +31,14 @@ export const handlers = [
             return res(ctx.status(401));
         }
     ),
-    rest.get('http://localhost:8000/session', (req, res, ctx) => {
+    rest.get(SESSION_ENDPOINT_URL, (req, res, ctx) => {
         return res(ctx.json(session.getIsAuthenticated()));
     }),
-    rest.delete('http://localhost:8000/session', (req, res, ctx) => {
+    rest.delete(SESSION_ENDPOINT_URL, (req, res, ctx) => {
         session.setNotAuthenticated();
         return res(ctx.status(200));
     }),
-    rest.get('http://localhost:8000/folder/*', (req, res, ctx) => {
+    rest.get(FOLDER_ENDPOINT_URL, (req, res, ctx) => {
         if (!session.getIsAuthenticated()) return res(ctx.status(401));
 
         const path = req.params['0'].toString();

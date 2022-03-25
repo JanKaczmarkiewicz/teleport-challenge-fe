@@ -22,13 +22,20 @@ fn rocket() -> _ {
 #[cfg(test)]
 mod test {
     use super::rocket;
+    use backend::routes::folder::FolderResponse;
     use rocket::{
         http::{ContentType, SameSite, Status},
         local::blocking::Client,
     };
 
+    const VALID_USER_CREDENTIALS: &'static str =
+        r#"{ "username": "Patricia12", "password": "weirdcloud46" }"#;
+
+    const INVALID_USER_CREDENTIALS: &'static str =
+        r#"{ "username": "Patricia12", "password": "badpassword" }"#;
+
     #[test]
-    fn unauthenticated_user_cannot_access_folder_data() {
+    fn folder_negative_unauthorized() {
         let rocket = rocket();
         let client = Client::tracked(rocket).unwrap();
         let response = client.get("/folder").dispatch();
@@ -36,26 +43,27 @@ mod test {
     }
 
     #[test]
-    fn login_with_invalid_credentials_results_in_error() {
+    fn login_negative() {
         let rocket = rocket();
         let client = Client::tracked(rocket).unwrap();
         let response = client
             .post("/session")
             .header(ContentType::JSON)
-            .body(r#"{ "username": "Patricia12", "password": "badpassword" }"#)
+            .body(INVALID_USER_CREDENTIALS)
             .dispatch();
 
         assert_eq!(response.status(), Status::Unauthorized);
     }
 
     #[test]
-    fn authenticated_user_can_access_folder_data() {
+    fn login_positive() {
         let rocket = rocket();
         let client = Client::tracked(rocket).unwrap();
+
         let login_response = client
             .post("/session")
             .header(ContentType::JSON)
-            .body(r#"{ "username": "Patricia12", "password": "weirdcloud46" }"#)
+            .body(VALID_USER_CREDENTIALS)
             .dispatch();
 
         let cookies = login_response.cookies();
@@ -66,9 +74,19 @@ mod test {
         assert_eq!(token_cookie.secure().unwrap(), true);
         assert_eq!(token_cookie.same_site().unwrap(), SameSite::None);
         assert_eq!(token_cookie.value(), "1");
+    }
+
+    #[test]
+    fn folder_positive() {
+        let rocket = rocket();
+        let client = Client::tracked(rocket).unwrap();
+        client
+            .post("/session")
+            .header(ContentType::JSON)
+            .body(VALID_USER_CREDENTIALS)
+            .dispatch();
 
         let response = client.get("/folder").dispatch();
-
         assert_eq!(response.status(), Status::Ok);
     }
 }

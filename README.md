@@ -30,6 +30,16 @@ The goal is to create a safe web application for browsing folders.
 docker-compose up
 ```
 
+App will be available at:
+
+- frontend: http://localhost:3000
+- backend: http://localhost:8000
+
+Example credentials:
+
+- username: `Patricia12`
+- password: `weirdcloud46`
+
 ## Frontend
 
 Typical single page application.

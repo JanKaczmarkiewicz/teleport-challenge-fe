@@ -21,7 +21,8 @@ pub struct DirectoryData {
 
 pub fn get_folder(relative_path: PathBuf) -> Option<DirectoryData> {
     let mut path = PathBuf::from("./root");
-    path.push(relative_path.as_path());
+    let relative_path = relative_path.to_str()?.to_owned().replace(".", "");
+    path.push(relative_path);
 
     let name = path.file_name()?.to_str()?.to_owned();
     let directory = fs::read_dir(path).ok()?;

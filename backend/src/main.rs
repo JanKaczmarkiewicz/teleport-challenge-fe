@@ -77,6 +77,26 @@ mod test {
     }
 
     #[test]
+    fn folder_positive_out_of_root() {
+        let rocket = rocket();
+        let client = Client::tracked(rocket).unwrap();
+
+        client
+            .post("/session")
+            .header(ContentType::JSON)
+            .body(VALID_USER_CREDENTIALS)
+            .dispatch();
+
+        let response = client.get("/folder/..").dispatch();
+
+        assert_eq!(response.status(), Status::Ok);
+
+        let json: FolderResponse = serde_json::from_str(&response.into_string().unwrap()).unwrap();
+
+        assert_eq!(json.name, "root");
+    }
+
+    #[test]
     fn folder_positive() {
         let rocket = rocket();
         let client = Client::tracked(rocket).unwrap();

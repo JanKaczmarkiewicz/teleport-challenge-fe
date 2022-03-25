@@ -4,20 +4,21 @@ use crate::{
 };
 use ::serde::Serialize;
 use rocket::{get, http::Status, serde::json::Json};
+use serde::Deserialize;
 use std::path::PathBuf;
 
-#[derive(Debug, Serialize)]
+#[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
-struct FolderItem {
-    size_kb: f64,
-    name: String,
-    r#type: &'static str,
+pub struct FolderItem {
+    pub size_kb: f64,
+    pub name: String,
+    pub r#type: String,
 }
 
-#[derive(Debug, Serialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct FolderResponse {
-    name: String,
-    items: Vec<FolderItem>,
+    pub name: String,
+    pub items: Vec<FolderItem>,
 }
 
 impl FolderResponse {
@@ -28,10 +29,10 @@ impl FolderResponse {
                 Location::Directory(Directory { name }) => FolderItem {
                     name,
                     size_kb: 0.0,
-                    r#type: "dir",
+                    r#type: String::from("dir"),
                 },
                 Location::File(File { name, size_kb }) => FolderItem {
-                    r#type: "file",
+                    r#type: String::from("file"),
                     name,
                     size_kb,
                 },

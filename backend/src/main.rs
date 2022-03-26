@@ -22,7 +22,7 @@ fn rocket() -> _ {
 #[cfg(test)]
 mod test {
     use super::rocket;
-    use backend::routes::folder::FolderResponse;
+    use backend::db::folder::DirectoryData;
     use rocket::{
         http::{ContentType, SameSite, Status},
         local::blocking::Client,
@@ -91,8 +91,7 @@ mod test {
 
         assert_eq!(response.status(), Status::Ok);
 
-        let json: FolderResponse = serde_json::from_str(&response.into_string().unwrap()).unwrap();
-
+        let json: DirectoryData = serde_json::from_str(&response.into_string().unwrap()).unwrap();
         assert_eq!(json.name, "root");
     }
 
@@ -107,6 +106,7 @@ mod test {
             .dispatch();
 
         let response = client.get("/folder").dispatch();
+
         assert_eq!(response.status(), Status::Ok);
     }
 }

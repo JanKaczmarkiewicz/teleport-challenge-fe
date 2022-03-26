@@ -1,22 +1,19 @@
 use std::{fs, path::PathBuf};
 
-pub struct File {
+use serde::{Deserialize, Serialize};
+
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct FolderItem {
     pub size_kb: f64,
     pub name: String,
+    pub r#type: String,
 }
 
-pub struct Directory {
-    pub name: String,
-}
-
-pub enum Location {
-    Directory(Directory),
-    File(File),
-}
-
+#[derive(Debug, Serialize, Deserialize)]
 pub struct DirectoryData {
     pub name: String,
-    pub items: Vec<Location>,
+    pub items: Vec<FolderItem>,
 }
 
 pub fn get_folder(relative_path: PathBuf) -> Option<DirectoryData> {
@@ -29,15 +26,24 @@ pub fn get_folder(relative_path: PathBuf) -> Option<DirectoryData> {
 
     let items = directory
         .flatten()
-        .flat_map(|file| -> Option<Location> {
+        .flat_map(|file| {
             let name = file.file_name().to_str()?.to_owned();
             let metadata = file.metadata().ok()?;
 
             if metadata.is_dir() {
-                Some(Location::Directory(Directory { name }))
+                Some(FolderItem {
+                    name,
+                    r#type: String::from("dir"),
+                    size_kb: 0.0,
+                })
             } else {
                 let size_kb = metadata.len() as f64 / 1000 as f64;
-                Some(Location::File(File { name, size_kb }))
+
+                Some(FolderItem {
+                    name,
+                    r#type: String::from("file"),
+                    size_kb,
+                })
             }
         })
         .collect::<Vec<_>>();

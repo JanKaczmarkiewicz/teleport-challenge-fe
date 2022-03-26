@@ -18,7 +18,7 @@ pub struct DirectoryData {
 
 pub fn get_folder(relative_path: PathBuf) -> Option<DirectoryData> {
     let mut path = PathBuf::from("./root");
-    let relative_path = relative_path.to_str()?.to_owned().replace(".", "");
+    let relative_path = relative_path.to_str()?.to_owned();
     path.push(relative_path);
 
     let name = path.file_name()?.to_str()?.to_owned();

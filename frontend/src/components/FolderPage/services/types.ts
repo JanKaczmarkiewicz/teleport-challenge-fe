@@ -1,7 +1,5 @@
 export type FolderData = {
     name: string;
-    type: 'dir';
-    sizeKb: number;
     items: {
         name: string;
         sizeKb: number;
@@ -9,4 +7,7 @@ export type FolderData = {
     }[];
 };
 
-export type SortableAttributes = keyof Pick<FolderData, 'name' | 'sizeKb'>;
+export type SortableAttributes = keyof Pick<
+    FolderData['items'][number],
+    'name' | 'sizeKb'
+>;

@@ -1,5 +1,6 @@
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
+import { FolderData } from '../components/FolderPage/services/types';
 import { BACKEND_URL } from '../env';
 
 // TODO: test with cookies https://mswjs.io/docs/recipes/cookies
@@ -46,51 +47,51 @@ export const handlers = [
 
         const path = req.params['0'].toString();
 
-        const folderData = {
-            '': {
-                name: 'root',
-                sizeKb: 0,
-                items: [
-                    {
-                        name: 'nested',
-                        type: 'dir',
-                        sizeKb: 0,
-                    },
-                    {
-                        name: 'small.rs',
-                        type: 'file',
-                        sizeKb: 0.5,
-                    },
-                    {
-                        name: 'medium.rs',
-                        type: 'file',
-                        sizeKb: 320,
-                    },
-                    {
-                        name: 'large.rs',
-                        type: 'file',
-                        sizeKb: 3200,
-                    },
-                ],
-            },
-            nested: {
-                name: 'nested',
-                sizeKb: 0,
-                items: [
-                    {
-                        name: 'fileInNestedFolder.rs',
-                        type: 'file',
-                        sizeKb: 1,
-                    },
-                ],
-            },
-        }[path];
+        const folderData = folderDataMap[path];
 
         if (!folderData) return res(ctx.status(404));
 
         return res(ctx.json(folderData));
     }),
 ];
+
+const folderDataMap: Record<string, FolderData> = {
+    '': {
+        name: 'root',
+        items: [
+            {
+                name: 'nested',
+                type: 'dir',
+                sizeKb: 0,
+            },
+            {
+                name: 'small.rs',
+                type: 'file',
+                sizeKb: 0.5,
+            },
+            {
+                name: 'medium.rs',
+                type: 'file',
+                sizeKb: 320,
+            },
+            {
+                name: 'large.rs',
+                type: 'file',
+                sizeKb: 3200,
+            },
+        ],
+    },
+    nested: {
+        name: 'nested',
+        items: [
+            {
+                name: 'fileInNestedFolder.rs',
+                type: 'file',
+                sizeKb: 1,
+            },
+        ],
+    },
+};
 
 const server = setupServer(...handlers);
 

@@ -17,13 +17,16 @@ const session = {
 const SESSION_ENDPOINT_URL = `${BACKEND_URL}/session`;
 const FOLDER_ENDPOINT_URL = `${BACKEND_URL}/folder/*`;
 
+export const TEST_USERNAME = 'test';
+export const TEST_PASSWORD = 'test123';
+
 export const handlers = [
     rest.post<{ username: string; password: string }>(
         SESSION_ENDPOINT_URL,
         (req, res, ctx) => {
             const { username, password } = req.body;
 
-            if (username === 'test' && password === 'test123') {
+            if (username === TEST_USERNAME && password === TEST_PASSWORD) {
                 session.setAuthenticated();
                 return res(ctx.status(200));
             }

@@ -1,3 +1,4 @@
+use crate::{auth::TOKEN, db::user::get_user_by_credentials};
 use rocket::{
     delete, get,
     http::{Cookie, CookieJar, SameSite, Status},
@@ -5,8 +6,6 @@ use rocket::{
     serde::json::Json,
 };
 use serde::Deserialize;
-
-use crate::{auth::TOKEN, db::user::get_user_by_credentials};
 
 #[derive(Deserialize, Debug)]
 pub struct Credentials<'a> {

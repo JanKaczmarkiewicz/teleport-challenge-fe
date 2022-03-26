@@ -1,6 +1,5 @@
-use std::{fs, path::PathBuf};
-
 use serde::{Deserialize, Serialize};
+use std::{fs, path::PathBuf};
 
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
@@ -22,9 +21,9 @@ pub fn get_folder(relative_path: PathBuf) -> Option<DirectoryData> {
     path.push(relative_path);
 
     let name = path.file_name()?.to_str()?.to_owned();
-    let directory = fs::read_dir(path).ok()?;
 
-    let items = directory
+    let items = fs::read_dir(path)
+        .ok()?
         .flatten()
         .flat_map(|file| {
             let name = file.file_name().to_str()?.to_owned();

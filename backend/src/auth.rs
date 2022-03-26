@@ -1,8 +1,7 @@
+use crate::db::user::get_user_by_id;
 use rocket::http::Status;
 use rocket::outcome::IntoOutcome;
 use rocket::request::{FromRequest, Outcome, Request};
-
-use crate::db::user::get_user_by_id;
 
 pub struct Auth<'a>(&'a str);
 

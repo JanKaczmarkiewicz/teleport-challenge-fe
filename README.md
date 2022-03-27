@@ -127,13 +127,13 @@ Returns folder data.
 
 - **responds** with:
 
-  - <span style="color:red;">error</span>, when a user is unauthenticated,
+  - <span style="color:red;">error</span>, when a user is unauthenticated:
 
     ```ts
     HTTP/1.1 401 Unauthenticated
     ```
 
-  - <span style="color:red;">error</span>, when a user is authenticated and the requested folder, doesn't exist,
+  - <span style="color:red;">error</span>, when a user is authenticated and the requested folder, doesn't exist:
 
     ```ts
     HTTP/1.1 404 Not found
@@ -196,14 +196,20 @@ Check if user is authenticated.
 
 - **responds** with:
 
-  - information about user authentication
+  - `false` when a user is unauthenticated:
 
     ```ts
     HTTP/1.1 200 Ok
 
-    {
-      isLogged: boolean,
-    }
+    false
+    ```
+
+  - `true` when a user is authenticated:
+
+    ```ts
+    HTTP/1.1 200 Ok
+
+    true
     ```
 
 #### DELETE /session

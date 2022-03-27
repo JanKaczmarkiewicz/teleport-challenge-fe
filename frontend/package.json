@@ -5,7 +5,7 @@
     "scripts": {
         "dev": "vite",
         "build": "tsc && vite build",
-        "lint": "eslint",
+        "lint": "eslint --ext .js,.jsx,.ts,.tsx src",
         "type-check:watch": "tsc -w",
         "postbuild": "cp _redirects dist",
         "test": "jest",

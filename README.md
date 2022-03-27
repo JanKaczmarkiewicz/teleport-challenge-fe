@@ -130,7 +130,7 @@ Returns folder data.
   - <span style="color:red;">error</span>, when a user is unauthenticated,
 
     ```ts
-    HTTP/1.1 403 Forbidden
+    HTTP/1.1 401 Unauthenticated
     ```
 
   - <span style="color:red;">error</span>, when a user is authenticated and the requested folder, doesn't exist,
@@ -179,7 +179,7 @@ Login.
   - <span style="color:red;">error</span> when credentials don't match any user,
 
     ```ts
-    HTTP/1.1 400 Bad request
+    HTTP/1.1 401 Unauthenticated
     ```
 
   - <span style="color:green;">success</span> code when the session is created. The `FOLDER-APP-TOKEN` cookie will store `JWT` and will be valid for one day.

@@ -82,9 +82,9 @@ A login screen where an unauthenticated user is automatically redirected to (and
 eg.:
 
 1. unauthenticated enters protected route `/folder/foo/bar`
-2. redirect to `/login?redirected_from=/folder/foo/bar`
+2. redirect to `/login`
 3. user logs in
-4. redirect to `redirected_from`
+4. redirect to `/folder/foo/bar`
 
 #### /not-found
 

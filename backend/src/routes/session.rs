@@ -6,6 +6,7 @@ use rocket::{
     serde::json::Json,
 };
 use serde::Deserialize;
+use time::Duration;
 
 #[derive(Deserialize, Debug)]
 pub struct Credentials<'a> {
@@ -19,6 +20,7 @@ pub fn login(cookies: &CookieJar<'_>, credentials: Json<Credentials<'_>>) -> Res
         let cookie = Cookie::build(TOKEN, user.id)
             .secure(true)
             .same_site(SameSite::None)
+            .max_age(Duration::days(1))
             .finish();
 
         cookies.add_private(cookie);

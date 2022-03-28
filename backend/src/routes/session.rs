@@ -1,4 +1,7 @@
-use crate::{auth::TOKEN, db::user::get_user_by_credentials};
+use crate::{
+    auth::TOKEN,
+    db::user::{get_user_by_credentials, get_user_by_id},
+};
 use rocket::{
     delete, get,
     http::{Cookie, CookieJar, SameSite, Status},
@@ -32,7 +35,12 @@ pub fn login(cookies: &CookieJar<'_>, credentials: Json<Credentials<'_>>) -> Res
 
 #[get("/")]
 pub fn is_logged(cookies: &CookieJar<'_>) -> Json<bool> {
-    Json(cookies.get(TOKEN).is_some())
+    Json(
+        cookies
+            .get_private(TOKEN)
+            .and_then(|cookie| get_user_by_id(cookie.value()))
+            .is_some(),
+    )
 }
 
 #[delete("/")]

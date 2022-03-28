@@ -5,7 +5,7 @@ use rocket::request::{FromRequest, Outcome, Request};
 
 pub struct Auth<'a>(&'a str);
 
-pub const TOKEN: &'static str = "token";
+pub const TOKEN: &str = "token";
 
 #[rocket::async_trait]
 impl<'r> FromRequest<'r> for Auth<'r> {
@@ -16,7 +16,7 @@ impl<'r> FromRequest<'r> for Auth<'r> {
             .cookies()
             .get_private(TOKEN)
             .and_then(|cookie| get_user_by_id(cookie.value()))
-            .and_then(|user| Some(Auth(user.id)))
+            .map(|user| Auth(user.id))
             .into_outcome(((Status::Unauthorized), ()))
     }
 }

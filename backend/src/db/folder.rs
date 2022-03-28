@@ -36,7 +36,7 @@ pub fn get_folder(relative_path: PathBuf) -> Option<DirectoryData> {
                     size_kb: 0.0,
                 })
             } else {
-                let size_kb = metadata.len() as f64 / 1000 as f64;
+                let size_kb = metadata.len() as f64 / 1000_f64;
 
                 Some(FolderItem {
                     name,

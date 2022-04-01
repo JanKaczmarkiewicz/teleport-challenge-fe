@@ -1,14 +1,13 @@
-type File = {
+export type FolderData = {
     name: string;
-    sizeKb: number;
-    type: 'file';
+    items: {
+        name: string;
+        sizeKb: number;
+        type: 'file' | 'dir';
+    }[];
 };
 
-export type Folder = {
-    name: string;
-    sizeKb: number;
-    type: 'dir';
-    items: Location[];
-};
-
-export type Location = Folder | File;
+export type SortableAttributes = keyof Pick<
+    FolderData['items'][number],
+    'name' | 'sizeKb'
+>;

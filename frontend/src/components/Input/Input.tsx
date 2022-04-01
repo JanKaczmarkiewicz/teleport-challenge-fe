@@ -1,12 +1,8 @@
-import { ComponentProps, ReactNode } from 'react';
 import { InputWrapper, Input as StyledInput } from './services/styled';
+import { InputProps } from './services/types';
 
-const Input = ({
-    icon,
-    className,
-    ...inputProps
-}: { icon: ReactNode } & ComponentProps<typeof StyledInput>) => (
-    <InputWrapper className={className}>
+const Input = ({ icon, className, isFullWidth, ...inputProps }: InputProps) => (
+    <InputWrapper className={className} isFullWidth={isFullWidth}>
         {icon}
         <StyledInput {...inputProps} />
     </InputWrapper>

@@ -4,10 +4,11 @@ import iconSizes from '../../../styleTokens/iconSizes';
 
 const PADDING_LEFT = '8px';
 
-export const InputWrapper = styled.div`
+export const InputWrapper = styled.div<{ isFullWidth?: boolean }>`
     position: relative;
     display: flex;
     align-items: center;
+    width: ${({ isFullWidth }) => (isFullWidth ? '100%' : '300px')};
 
     input {
         padding: ${PADDING_LEFT};
@@ -23,12 +24,12 @@ export const InputWrapper = styled.div`
     }
 `;
 
-export const Input = styled.input<{ isFullWidth?: boolean }>`
+export const Input = styled.input`
     border: 1px solid ${colors.iron};
     border-radius: 0.25rem;
     height: 40px;
+    flex: 1;
     color: ${colors.shark};
-    width: ${({ isFullWidth }) => (isFullWidth ? '100%' : '300px')};
 
     ::placeholder {
         color: ${colors.boulder};

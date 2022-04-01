@@ -1,0 +1,45 @@
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: backend
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build
+        run: cargo build --verbose
+      - name: Clippy
+        run: cargo clippy
+      - name: Run tests
+        run: cargo test --verbose
+
+  frontend:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: frontend
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use node
+        uses: actions/setup-node@v2
+        with:
+          cache-dependency-path: frontend
+          node-version: 14.x
+          cache: "npm"
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run test
+      - run: npm run build

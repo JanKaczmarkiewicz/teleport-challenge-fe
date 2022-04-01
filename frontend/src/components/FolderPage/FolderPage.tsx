@@ -1,5 +1,5 @@
 import { ChangeEventHandler, useState } from 'react';
-import { Navigate, useParams } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { MdFolder, MdOutlineInsertDriveFile, MdSearch } from 'react-icons/md';
 import {
     Cell,
@@ -16,23 +16,33 @@ import {
     FolderRow,
     Header,
 } from './services/styled';
-import { by, formatSize, getBreadcrumbs, getFolder } from './services/helpers';
+import {
+    by,
+    formatSize,
+    getBreadcrumbs,
+    parseFolderPath,
+    useCurrentFolderPath,
+    useFolderData,
+} from './services/helpers';
 import routes, { generateFolderPath } from '../../routes';
 import iconSizes from '../../styleTokens/iconSizes';
 import PageContainer from '../PageContainer/PageContainer';
-import { Location } from './services/types';
+import { SortableAttributes } from './services/types';
 
 const FolderPage = () => {
-    const directoryPath = useParams<typeof routes.any>()['*'] || '';
+    const folderData = useFolderData();
+    const folderPath = useCurrentFolderPath();
+    const pathParts = parseFolderPath(folderPath);
+
     const [inputValue, setInputValue] = useState('');
     const [orderAttribute, setOrderAttribute] =
-        useState<keyof Location>('name');
+        useState<SortableAttributes>('name');
     const [isDescending, setIsDescending] = useState(false);
 
-    const directoryParts = directoryPath.split('/').filter(Boolean);
-    const folderData = getFolder(directoryParts);
+    if (folderData === 'loading') return null;
 
-    if (!folderData) return <Navigate replace to={routes.notFound} />;
+    if (folderData === 'error')
+        return <Navigate replace to={routes.notFound} />;
 
     // NOTE: Sorting and filtering is an expensive operation on big data sets.
     // Right now, we don't need a memorization since every component update causes a change in options order or number.
@@ -48,7 +58,7 @@ const FolderPage = () => {
     const files = orderedSortedItems.filter(({ type }) => type === 'file');
     const folders = orderedSortedItems.filter(({ type }) => type === 'dir');
 
-    const handleColumnNameClick = (columnName: keyof Location) => () => {
+    const handleColumnNameClick = (columnName: SortableAttributes) => () => {
         if (orderAttribute === columnName) {
             setIsDescending((current) => !current);
         }
@@ -65,7 +75,7 @@ const FolderPage = () => {
 
     return (
         <PageContainer>
-            <BreadcrumbsWithSpace items={getBreadcrumbs(directoryParts)} />
+            <BreadcrumbsWithSpace items={getBreadcrumbs(pathParts)} />
 
             <InputWithSpace
                 icon={<MdSearch size={iconSizes.medium} />}
@@ -99,9 +109,7 @@ const FolderPage = () => {
             <ListContainer>
                 {folders.map(({ name }) => (
                     <FolderRow key={name}>
-                        <FolderLink
-                            to={generateFolderPath(...directoryParts, name)}
-                        >
+                        <FolderLink to={generateFolderPath(...pathParts, name)}>
                             <Cell>
                                 <IconWrapper>
                                     <MdFolder size={iconSizes.large} />

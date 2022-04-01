@@ -3,6 +3,7 @@
 The goal is to create a safe web application for browsing folders.
 
 - [Folder app](#folder-app)
+  - [Run locally](#run-locally)
   - [Frontend](#frontend)
     - [Assets server](#assets-server)
     - [Tooling](#tooling)
@@ -22,6 +23,28 @@ The goal is to create a safe web application for browsing folders.
   - [Security considerations](#security-considerations)
   - [Branch naming convention](#branch-naming-convention)
   - [Tests](#tests)
+
+## Run locally
+
+1. for viewing and testing visually use `docker`:
+
+   - start app `docker-compose up`
+   - rebuild (after pull or local changes) `docker-compose up --build`
+
+2. for debugging/developing use following:
+
+   - run frontend `cd frontend && npm run dev` (requires `node`, I use `v14.19.0`)
+   - run backend `cd backend && cargo run` (requires `cargo`, I use `1.59.0`)
+
+In both cases app will be available at:
+
+- frontend: http://localhost:3000
+- backend: http://localhost:8000
+
+Example credentials:
+
+- username: `Patricia12`
+- password: `weirdcloud46`
 
 ## Frontend
 
@@ -59,9 +82,9 @@ A login screen where an unauthenticated user is automatically redirected to (and
 eg.:
 
 1. unauthenticated enters protected route `/folder/foo/bar`
-2. redirect to `/login?redirected_from=/folder/foo/bar`
+2. redirect to `/login`
 3. user logs in
-4. redirect to `redirected_from`
+4. redirect to `/folder/foo/bar`
 
 #### /not-found
 
@@ -104,13 +127,13 @@ Returns folder data.
 
 - **responds** with:
 
-  - <span style="color:red;">error</span>, when a user is unauthenticated,
+  - <span style="color:red;">error</span>, when a user is unauthenticated:
 
     ```ts
-    HTTP/1.1 403 Forbidden
+    HTTP/1.1 401 Unauthenticated
     ```
 
-  - <span style="color:red;">error</span>, when a user is authenticated and the requested folder, doesn't exist,
+  - <span style="color:red;">error</span>, when a user is authenticated and the requested folder, doesn't exist:
 
     ```ts
     HTTP/1.1 404 Not found
@@ -156,7 +179,7 @@ Login.
   - <span style="color:red;">error</span> when credentials don't match any user,
 
     ```ts
-    HTTP/1.1 400 Bad request
+    HTTP/1.1 401 Unauthenticated
     ```
 
   - <span style="color:green;">success</span> code when the session is created. The `FOLDER-APP-TOKEN` cookie will store `JWT` and will be valid for one day.
@@ -173,14 +196,20 @@ Check if user is authenticated.
 
 - **responds** with:
 
-  - information about user authentication
+  - `false` when a user is unauthenticated:
 
     ```ts
     HTTP/1.1 200 Ok
 
-    {
-      isLogged: boolean,
-    }
+    false
+    ```
+
+  - `true` when a user is authenticated:
+
+    ```ts
+    HTTP/1.1 200 Ok
+
+    true
     ```
 
 #### DELETE /session

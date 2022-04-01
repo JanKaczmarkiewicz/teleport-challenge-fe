@@ -1,15 +1,17 @@
 import { screen } from '@testing-library/react';
 import { generateFolderPath } from '../../../routes';
-import setup from './setup';
+import setup, { login } from './setup';
 
 test('should render 404 page', async () => {
-    setup({ at: '/not-exisiting-page' });
+    setup({ at: '/not-existing-page' });
+    login();
 
-    expect(screen.getByText('Page not found')).toBeInTheDocument();
+    expect(await screen.findByText('Page not found')).toBeInTheDocument();
 });
 
 test('should render 404 page when no folder found', async () => {
     setup({ at: generateFolderPath('foo', 'bar') });
+    login();
 
-    expect(screen.getByText('Page not found')).toBeInTheDocument();
+    expect(await screen.findByText('Page not found')).toBeInTheDocument();
 });

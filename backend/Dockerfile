@@ -4,7 +4,7 @@ COPY . .
 RUN cargo install --path .
 
 
-FROM debian:buster-slim
+FROM debian:bullseye-slim
 
 WORKDIR /usr/workdir
 

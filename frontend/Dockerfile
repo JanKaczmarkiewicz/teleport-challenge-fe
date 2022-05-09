@@ -8,7 +8,7 @@ RUN npm i
 RUN npm run build
 
 
-FROM nginx:alpine
+FROM nginx:perl
 
 WORKDIR /usr/share/nginx/html
 

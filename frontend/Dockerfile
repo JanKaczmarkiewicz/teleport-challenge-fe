@@ -8,7 +8,7 @@ RUN npm i
 RUN npm run build
 
 
-FROM nginx:perl
+FROM nginx:1.23.1-perl
 
 WORKDIR /usr/share/nginx/html
 
